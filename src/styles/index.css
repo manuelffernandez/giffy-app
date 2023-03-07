@@ -1,0 +1,6 @@
+@import '@fontsource/roboto/300.css';
+
+body {
+  font-family: "Roboto", sans-serif;
+  min-height: 100vh;
+}
