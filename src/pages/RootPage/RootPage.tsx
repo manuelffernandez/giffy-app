@@ -1,15 +1,14 @@
 import { Footer, Header } from '@/components';
-import { Box } from '@mui/material';
 import { Outlet } from 'react-router-dom';
-import { RootContainer } from './components';
+import { RootContainer, MainContainer } from './components';
 
 const RootPage = (): JSX.Element => {
   return (
     <RootContainer>
       <Header />
-      <Box component='main' sx={{ flexGrow: 1 }}>
+      <MainContainer component='main'>
         <Outlet />
-      </Box>
+      </MainContainer>
       <Footer />
     </RootContainer>
   );
