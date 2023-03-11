@@ -5,7 +5,9 @@ import {
   type SearchFormValues,
 } from '@/interfaces';
 import { getGifs } from '@/services/gifs';
-import { useEffect, useState } from 'react';
+import { Formik } from 'formik';
+import { useEffect, useMemo, useState } from 'react';
+import * as Yup from 'yup';
 
 interface States {
   isLoading: boolean;
@@ -17,6 +19,7 @@ const Home = (): JSX.Element => {
   const [isLoading, setIsLoading] = useState<States['isLoading']>(false);
   const [gifs, setGifs] = useState<States['gifs']>([]);
   const [queryTerm, setQueryTerm] = useState<States['queryTerm']>('');
+  const lastQueryTerm = useMemo(() => queryTerm, [queryTerm]);
 
   const handleResponse = (response: AdaptedResponse<any>): void => {
     setIsLoading(false);
@@ -37,25 +40,34 @@ const Home = (): JSX.Element => {
     });
   };
 
-  const handleSearchBarSubmit = (values: SearchFormValues): void => {
-    // handleSearch(values.queryTerm);
+  const handleSearchBarSubmit = async (
+    values: SearchFormValues
+  ): Promise<void> => {
     setQueryTerm(values.queryTerm);
+    handleSearch(values.queryTerm);
   };
 
   useEffect(() => {
-    if (queryTerm !== '') {
-      handleSearch(queryTerm);
-    } else {
-      handleSearch('panda');
-    }
-  }, [queryTerm]);
+    handleSearch('panda');
+  }, []);
+
+  const initialValues: SearchFormValues = { queryTerm: lastQueryTerm };
 
   return isLoading ? (
     <p>Loading...</p>
   ) : (
     <>
-      <SearchBar handleSubmit={handleSearchBarSubmit} />
-      <GifList gifs={gifs} queryTerm={queryTerm} />
+      <Formik
+        initialValues={initialValues}
+        validationSchema={Yup.object({
+          queryTerm: Yup.string().required('You have to search for something'),
+        })}
+        onSubmit={handleSearchBarSubmit}>
+        {({ errors, touched }) => (
+          <SearchBar errors={errors} touched={touched} />
+        )}
+      </Formik>
+      <GifList gifs={gifs} queryTerm={lastQueryTerm} />
     </>
   );
 };
