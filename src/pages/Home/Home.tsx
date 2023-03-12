@@ -1,25 +1,18 @@
 import { GifList, SearchBar } from '@/components';
-import {
-  type AdaptedResponse,
-  type Gif,
-  type SearchFormValues,
-} from '@/interfaces';
-import { getGifs } from '@/services/gifs';
-import { Formik } from 'formik';
-import { useEffect, useMemo, useState } from 'react';
-import * as Yup from 'yup';
+import { useSearchBar } from '@/hooks';
+import { type AdaptedResponse, type Gif } from '@/interfaces';
+import { getGifs } from '@/services';
+import { useEffect, useState } from 'react';
 
 interface States {
   isLoading: boolean;
   gifs: Gif[];
-  queryTerm: string;
 }
 
 const Home = (): JSX.Element => {
   const [isLoading, setIsLoading] = useState<States['isLoading']>(false);
   const [gifs, setGifs] = useState<States['gifs']>([]);
-  const [queryTerm, setQueryTerm] = useState<States['queryTerm']>('');
-  const lastQueryTerm = useMemo(() => queryTerm, [queryTerm]);
+  const { handleSearch } = useSearchBar();
 
   const handleResponse = (response: AdaptedResponse<any>): void => {
     setIsLoading(false);
@@ -31,43 +24,21 @@ const Home = (): JSX.Element => {
     }
   };
 
-  const handleSearch = (keyword: string): void => {
+  useEffect(() => {
     setIsLoading(true);
 
     // avoid no-floating-promises error
-    void getGifs(keyword).then(res => {
+    void getGifs('panda').then(res => {
       handleResponse(res);
     });
-  };
-
-  const handleSearchBarSubmit = async (
-    values: SearchFormValues
-  ): Promise<void> => {
-    setQueryTerm(values.queryTerm);
-    handleSearch(values.queryTerm);
-  };
-
-  useEffect(() => {
-    handleSearch('panda');
   }, []);
-
-  const initialValues: SearchFormValues = { queryTerm: lastQueryTerm };
 
   return isLoading ? (
     <p>Loading...</p>
   ) : (
     <>
-      <Formik
-        initialValues={initialValues}
-        validationSchema={Yup.object({
-          queryTerm: Yup.string().required('You have to search for something'),
-        })}
-        onSubmit={handleSearchBarSubmit}>
-        {({ errors, touched }) => (
-          <SearchBar errors={errors} touched={touched} />
-        )}
-      </Formik>
-      <GifList gifs={gifs} queryTerm={lastQueryTerm} />
+      <SearchBar onSearch={handleSearch} />
+      <GifList gifs={gifs} />
     </>
   );
 };
