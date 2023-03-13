@@ -1,4 +1,4 @@
 export * from './ErrorPage';
 export * from './Home';
 export * from './RootPage';
-export * from './Search';
+export * from './SearchPage';

@@ -2,7 +2,7 @@ import { GifList, SearchBar } from '@/components';
 import { useSearchBar } from '@/hooks';
 import { useLocation, useParams } from 'react-router-dom';
 
-const Search = (): JSX.Element => {
+const SearchPage = (): JSX.Element => {
   const { queryTerm } = useParams();
   const location = useLocation();
   const { gifs } = location.state;
@@ -18,4 +18,4 @@ const Search = (): JSX.Element => {
   );
 };
 
-export default Search;
+export default SearchPage;
