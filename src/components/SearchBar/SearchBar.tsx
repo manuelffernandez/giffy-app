@@ -7,7 +7,7 @@ import { SearchTextField } from './components';
 
 interface Props {
   onSearch: (keyword: string) => void;
-  queryTerm?: string;
+  queryTerm: string;
 }
 
 const SearchBar = (props: Props): JSX.Element => {
@@ -17,21 +17,9 @@ const SearchBar = (props: Props): JSX.Element => {
     onSearch(values.queryTerm);
   };
 
-  const initialValues = (queryTerm: string | undefined): SearchFormValues => {
-    if (queryTerm === '' || queryTerm === undefined) {
-      return {
-        queryTerm: '',
-      };
-    } else {
-      return {
-        queryTerm,
-      };
-    }
-  };
-
   return (
     <Formik
-      initialValues={initialValues(queryTerm)}
+      initialValues={{ queryTerm }}
       validationSchema={Yup.object({
         queryTerm: Yup.string().required('You have to search for something'),
       })}
