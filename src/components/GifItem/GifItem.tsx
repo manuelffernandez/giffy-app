@@ -1,3 +1,5 @@
+import { Box, Typography } from '@mui/material';
+
 interface Props {
   title: string;
   url: string;
@@ -6,10 +8,24 @@ interface Props {
 const GifItem = (props: Props): JSX.Element => {
   const { title, url } = props;
   return (
-    <div>
-      <p>{title}</p>
-      <img src={url} />
-    </div>
+    <Box
+      sx={{
+        lineHeight: 0,
+        position: 'relative',
+      }}>
+      <Box component='img' src={url}></Box>
+      <Typography
+        fontSize='small'
+        sx={{
+          position: 'absolute',
+          bottom: 0,
+          left: 0,
+          bgcolor: 'rgba(0, 0, 0, 0.6)',
+          color: 'white',
+        }}>
+        {title}
+      </Typography>
+    </Box>
   );
 };
 
