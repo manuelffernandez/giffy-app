@@ -26,7 +26,7 @@ export const getGifs = async (
   const queryParams: KeyValueParam[] = [
     { paramKey: 'api_key', paramValue: import.meta.env.VITE_API_KEY },
     { paramKey: 'q', paramValue: keyword },
-    { paramKey: 'limit', paramValue: '2' },
+    { paramKey: 'limit', paramValue: '25' },
     { paramKey: 'offset', paramValue: '0' },
     { paramKey: 'rating', paramValue: 'g' },
     { paramKey: 'lang', paramValue: 'en' },
@@ -46,7 +46,7 @@ export const getGifs = async (
       const gifs: Gif[] = resBody.data.map(
         (gifObject: any): Gif => ({
           title: gifObject.title as string,
-          url: gifObject.images.fixed_height.url as string,
+          url: gifObject.images.fixed_width.url as string,
           id: gifObject.id,
         })
       );
