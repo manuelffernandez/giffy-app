@@ -1,4 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom';
+import { SearchPage } from '@/pages';
 import { ErrorPage, Home, RootPage } from './pages';
 
 export const router = createBrowserRouter([
@@ -10,6 +11,10 @@ export const router = createBrowserRouter([
       {
         index: true,
         element: <Home />,
+      },
+      {
+        path: 'search/:queryTerm',
+        element: <SearchPage />,
       },
     ],
   },

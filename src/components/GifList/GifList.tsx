@@ -13,7 +13,7 @@ const GifList = (props: Props): JSX.Element => {
     <>
       {gifs.length !== 0 ? (
         <>
-          <h2>Results for {queryTerm}</h2>
+          {queryTerm.length !== 0 ? <h2>Results for {queryTerm}</h2> : null}
           {gifs.map(gif => (
             <GifItem key={gif.id} title={gif.title} url={gif.url} />
           ))}
