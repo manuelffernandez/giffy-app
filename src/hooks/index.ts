@@ -1,1 +1,1 @@
-export { default as useSearchBar } from './useSearchBar';
+export { default as useGifs } from './useGifs';

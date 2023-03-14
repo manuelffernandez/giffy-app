@@ -2,19 +2,21 @@ import { type SearchFormValues } from '@/interfaces';
 import SearchIcon from '@mui/icons-material/Search';
 import { Box, IconButton, Stack, Typography } from '@mui/material';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
+import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { SearchTextField } from './components';
 
 interface Props {
-  onSearch: (keyword: string) => void;
   queryTerm: string;
 }
 
 const SearchBar = (props: Props): JSX.Element => {
-  const { onSearch, queryTerm } = props;
+  const navigate = useNavigate();
+
+  const { queryTerm } = props;
 
   const handleSubmit = (values: SearchFormValues): void => {
-    onSearch(values.queryTerm);
+    navigate(`/search/${values.queryTerm}`);
   };
 
   return (
