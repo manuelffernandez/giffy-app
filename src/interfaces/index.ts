@@ -1,3 +1,3 @@
-export * from './forms';
-export * from './gifs';
-export * from './services';
+export * from './forms-types';
+export * from './gif-types';
+export * from './services-types';
