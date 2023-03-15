@@ -51,7 +51,7 @@ export const getGifs = async (
         })
       );
 
-      // ts-assertion
+      // ts-assertion tooks 'true' as a boolean
       return { gifs, isOk: true as true };
     })
     .catch(errorHandler);
