@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material';
+import { Box, ImageListItem, Typography } from '@mui/material';
 
 interface Props {
   title: string;
@@ -8,15 +8,17 @@ interface Props {
 const GifItem = (props: Props): JSX.Element => {
   const { title, url } = props;
   return (
-    <Box
+    <ImageListItem
       sx={{
         lineHeight: 0,
         position: 'relative',
       }}>
-      <Box component='img' src={url}></Box>
+      <Box component='img' src={url} loading='lazy' width='100%'></Box>
       <Typography
-        fontSize='small'
         sx={{
+          fontSize: 'small',
+          paddingLeft: 1,
+          paddingRight: 1,
           position: 'absolute',
           bottom: 0,
           left: 0,
@@ -25,7 +27,7 @@ const GifItem = (props: Props): JSX.Element => {
         }}>
         {title}
       </Typography>
-    </Box>
+    </ImageListItem>
   );
 };
 
