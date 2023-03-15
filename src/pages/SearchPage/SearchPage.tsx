@@ -1,5 +1,6 @@
 import { GifList, SearchBar } from '@/components';
 import { useGifs } from '@/hooks';
+import { CircularProgress } from '@mui/material';
 import { useParams } from 'react-router-dom';
 
 const SearchPage = (): JSX.Element => {
@@ -10,7 +11,7 @@ const SearchPage = (): JSX.Element => {
     <>
       <h1>Search</h1>
       {isLoading ? (
-        <p>Loading...</p>
+        <CircularProgress />
       ) : (
         <>
           <SearchBar queryTerm={queryTerm} />
