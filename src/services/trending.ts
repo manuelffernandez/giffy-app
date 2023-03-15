@@ -29,9 +29,9 @@ export const getTrendingTerms = async (): Promise<
       }
     })
     .then(resBody => {
-      const trendingTerms = resBody as string[];
+      const { data } = resBody;
 
-      return { isOk: true as true, trendingTerms };
+      return { isOk: true as true, trendingTerms: data };
     })
     .catch(errorHandler);
 };
