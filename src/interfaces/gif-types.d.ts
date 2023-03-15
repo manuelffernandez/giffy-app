@@ -17,6 +17,8 @@ export interface VariousGif {
   gifs: Gif[];
 }
 
-export type TrendingTerms = string[];
+export interface TrendingTerms {
+  trendingTerms: string[];
+}
 
 export type AdaptedTypes = VariousGif | OneGif | TrendingTerms;
