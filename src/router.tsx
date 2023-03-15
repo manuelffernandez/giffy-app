@@ -1,6 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
 import { SearchPage } from '@/pages';
-import { ErrorPage, Home, RootPage } from './pages';
+import { ErrorPage, Home, RootPage, DetailPage } from './pages';
 
 export const router = createBrowserRouter([
   {
@@ -15,6 +15,10 @@ export const router = createBrowserRouter([
       {
         path: 'search/:queryTerm',
         element: <SearchPage />,
+      },
+      {
+        path: 'gif/:gifId',
+        element: <DetailPage />,
       },
     ],
   },

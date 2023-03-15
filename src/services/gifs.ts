@@ -1,5 +1,10 @@
 import { ResponseError } from '@/entities';
-import { type AdaptedResponse, type Gif } from '@/interfaces';
+import {
+  type AdaptedResponse,
+  type Gif,
+  type OneGif,
+  type VariousGif,
+} from '@/interfaces';
 
 interface KeyValueParam {
   paramKey: string;
@@ -19,7 +24,7 @@ const setURLParams = (URL: URL, KeyValueParams: KeyValueParam[]): URL => {
 
 export const getGifs = async (
   keyword: string
-): Promise<AdaptedResponse<any> | AdaptedResponse<never>> => {
+): Promise<AdaptedResponse<VariousGif> | AdaptedResponse<never>> => {
   // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
   const GIFS_URL = new URL(`${import.meta.env.VITE_BASE_URL}/search`);
 
@@ -43,16 +48,54 @@ export const getGifs = async (
       }
     })
     .then(resBody => {
-      const gifs: Gif[] = resBody.data.map(
-        (gifObject: any): Gif => ({
-          title: gifObject.title as string,
-          url: gifObject.images.fixed_width.url as string,
-          id: gifObject.id,
-        })
-      );
+      const gifs: Gif[] = resBody.data.map((gifObject: any): Gif => {
+        const { title, images, id } = gifObject;
+
+        return {
+          title,
+          url: images.fixed_width.url,
+          id,
+        };
+      });
 
       // ts-assertion tooks 'true' as a boolean
-      return { gifs, isOk: true as true };
+      return { isOk: true as true, gifs };
+    })
+    .catch(errorHandler);
+};
+
+export const getGif = async (
+  gifId: string
+): Promise<AdaptedResponse<OneGif> | AdaptedResponse<never>> => {
+  // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+  const GIF_URL = new URL(`${import.meta.env.VITE_BASE_URL}`);
+
+  const queryParams: KeyValueParam[] = [
+    { paramKey: 'api_key', paramValue: import.meta.env.VITE_API_KEY },
+    { paramKey: 'ids', paramValue: gifId },
+  ];
+
+  setURLParams(GIF_URL, queryParams);
+
+  return await fetch(GIF_URL)
+    .then(async res => {
+      if (!res.ok) {
+        throw new ResponseError('Bad fetch response', res);
+      } else {
+        return await res.json();
+      }
+    })
+    .then(resBody => {
+      const { title, images, id } = resBody.data[0];
+
+      const gif: Gif = {
+        title,
+        url: images.original.url,
+        id,
+      };
+
+      // ts-assertion tooks 'true' as a boolean
+      return { isOk: true as true, gif };
     })
     .catch(errorHandler);
 };

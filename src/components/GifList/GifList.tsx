@@ -19,9 +19,18 @@ const GifList = (props: Props): JSX.Element => {
       {gifs.length !== 0 ? (
         <>
           {queryTerm.length !== 0 ? <h2>Results for {queryTerm}</h2> : null}
-          <ImageList variant='masonry' cols={matchDownMd ? 2 : 4} gap={8}>
+          <ImageList
+            variant='masonry'
+            cols={matchDownMd ? 2 : 4}
+            gap={8}
+            sx={{ overflow: 'hidden' }}>
             {gifs.map(gif => (
-              <GifItem key={gif.id} title={gif.title} url={gif.url} />
+              <GifItem
+                key={gif.id}
+                id={gif.id}
+                title={gif.title}
+                url={gif.url}
+              />
             ))}
           </ImageList>
         </>

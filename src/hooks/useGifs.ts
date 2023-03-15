@@ -1,4 +1,4 @@
-import { type AdaptedResponse, type Gif } from '@/interfaces';
+import { type AdaptedResponse, type Gif, type VariousGif } from '@/interfaces';
 import { getGifs } from '@/services';
 import { useEffect, useState } from 'react';
 
@@ -12,7 +12,7 @@ const useGifs = (params: Params): { isLoading: boolean; gifs: Gif[] } => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [gifs, setGifs] = useState<Gif[]>([]);
 
-  const handleResponse = (response: AdaptedResponse<any>): void => {
+  const handleResponse = (response: AdaptedResponse<VariousGif>): void => {
     setIsLoading(false);
 
     if (response.isOk) {
