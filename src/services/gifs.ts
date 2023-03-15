@@ -1,32 +1,18 @@
 import { ResponseError } from '@/entities';
 import {
+  type KeyValueParam,
   type AdaptedResponse,
   type Gif,
   type OneGif,
   type VariousGif,
 } from '@/interfaces';
-
-interface KeyValueParam {
-  paramKey: string;
-  paramValue: string;
-}
-
-const errorHandler = (err: ResponseError): AdaptedResponse<never> => {
-  return { isOk: false, errorMsg: err.message };
-};
-
-const setURLParams = (URL: URL, KeyValueParams: KeyValueParam[]): URL => {
-  KeyValueParams.forEach(KeyValueParam => {
-    URL.searchParams.set(KeyValueParam.paramKey, KeyValueParam.paramValue);
-  });
-  return URL;
-};
+import { errorHandler, setURLParams } from '@/services/utils';
 
 export const getGifs = async (
   keyword: string
 ): Promise<AdaptedResponse<VariousGif> | AdaptedResponse<never>> => {
   // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-  const GIFS_URL = new URL(`${import.meta.env.VITE_BASE_URL}/search`);
+  const GIFS_URL = new URL(`${import.meta.env.VITE_BASE_URL}/gifs/search`);
 
   const queryParams: KeyValueParam[] = [
     { paramKey: 'api_key', paramValue: import.meta.env.VITE_API_KEY },
@@ -68,7 +54,7 @@ export const getGif = async (
   gifId: string
 ): Promise<AdaptedResponse<OneGif> | AdaptedResponse<never>> => {
   // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-  const GIF_URL = new URL(`${import.meta.env.VITE_BASE_URL}`);
+  const GIF_URL = new URL(`${import.meta.env.VITE_BASE_URL}/gifs`);
 
   const queryParams: KeyValueParam[] = [
     { paramKey: 'api_key', paramValue: import.meta.env.VITE_API_KEY },
