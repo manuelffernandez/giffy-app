@@ -16,7 +16,7 @@ const GifItem = (props: Props): JSX.Element => {
         position: 'relative',
       }}>
       <CustomRouterLink to={`/gif/${id}`}>
-        <Box component='img' src={url} loading='lazy' width='100%'></Box>
+        <Box component='img' src={url} width='100%'></Box>
         <Typography
           sx={{
             fontSize: 'small',
