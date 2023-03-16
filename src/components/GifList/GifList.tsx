@@ -1,6 +1,6 @@
 import { GifItem } from '@/components';
 import { type Gif } from '@/interfaces';
-import { ImageList, useMediaQuery } from '@mui/material';
+import { Container, ImageList, useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 
 interface Props {
@@ -15,7 +15,12 @@ const GifList = (props: Props): JSX.Element => {
   const { gifs, queryTerm } = props;
 
   return (
-    <>
+    <Container
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+      }}>
       {gifs.length !== 0 ? (
         <>
           {queryTerm.length !== 0 ? <h2>Results for {queryTerm}</h2> : null}
@@ -37,7 +42,7 @@ const GifList = (props: Props): JSX.Element => {
       ) : (
         <h2>No GIFs found for {queryTerm}</h2>
       )}
-    </>
+    </Container>
   );
 };
 

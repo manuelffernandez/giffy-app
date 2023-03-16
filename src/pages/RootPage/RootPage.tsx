@@ -6,7 +6,7 @@ const RootPage = (): JSX.Element => {
   return (
     <RootContainer>
       <Header />
-      <MainContainer component='main'>
+      <MainContainer maxWidth='xl' component='main'>
         <Outlet />
       </MainContainer>
       <Footer />

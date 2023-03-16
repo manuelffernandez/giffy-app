@@ -26,42 +26,40 @@ const SearchBar = (props: Props): JSX.Element => {
         queryTerm: Yup.string().required('You have to search for something'),
       })}
       onSubmit={handleSubmit}>
-      {({ errors, touched }) => (
-        <Form>
-          <Stack direction='row'>
-            <Box sx={{ mb: 5, flexGrow: 1 }}>
-              <Field
-                name='queryTerm'
-                label='Search'
-                placeholder='Search for gifs'
-                variant='standard'
-                required
-                autoComplete='off'
-                error={
-                  !(errors.queryTerm == null) && (touched.queryTerm ?? false)
-                }
-                as={SearchTextField}
-              />
-              <Typography color='error.main' fontSize='medium'>
-                <ErrorMessage name='queryTerm' />
-              </Typography>
-            </Box>
-            <Box>
-              <IconButton
-                color={
-                  !(errors.queryTerm == null) && (touched.queryTerm ?? false)
-                    ? 'error'
-                    : 'primary'
-                }
-                aria-label='search gifs'
-                component='button'
-                type='submit'>
-                <SearchIcon />
-              </IconButton>
-            </Box>
-          </Stack>
-        </Form>
-      )}
+      {({ errors, touched }) => {
+        const isError =
+          !(errors.queryTerm == null) && (touched.queryTerm ?? false);
+
+        return (
+          <Form>
+            <Stack direction='column' sx={{ mb: 5 }}>
+              <Box sx={{ display: 'flex', flexGrow: 1 }}>
+                <Field
+                  sx={{ flex: 1 }}
+                  name='queryTerm'
+                  placeholder='Search for gifs'
+                  required
+                  autoComplete='off'
+                  error={isError}
+                  as={SearchTextField}
+                />
+                <IconButton
+                  color={isError ? 'error' : 'primary'}
+                  aria-label='search gifs'
+                  component='button'
+                  type='submit'>
+                  <SearchIcon />
+                </IconButton>
+              </Box>
+              <Box>
+                <Typography color='error.main' fontSize='medium'>
+                  <ErrorMessage name='queryTerm' />
+                </Typography>
+              </Box>
+            </Stack>
+          </Form>
+        );
+      }}
     </Formik>
   );
 };
