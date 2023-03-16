@@ -1,21 +1,13 @@
-import { SearchBar } from '@/components';
-import { Link } from 'react-router-dom';
-
+import { LazyTrending, SearchBar } from '@/components';
+import { Typography } from '@mui/material';
 const Home = (): JSX.Element => {
-  const trending = ['panda', 'cat', 'matrix'];
-
   return (
     <>
-      <h1>Home</h1>
+      <Typography component='h1' variant='h2'>
+        Home
+      </Typography>
       <SearchBar queryTerm='' />
-      <h2>Popular gifs</h2>
-      <ul>
-        {trending.map(word => (
-          <li key={word}>
-            <Link to={`/search/${word}`}>{`${word} gifs`}</Link>
-          </li>
-        ))}
-      </ul>
+      <LazyTrending />
     </>
   );
 };
