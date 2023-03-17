@@ -1,6 +1,6 @@
-import { GifList, SearchBar } from '@/components';
+import { GifResults, SearchBar } from '@/components';
 import { useGifs } from '@/hooks';
-import { CircularProgress } from '@mui/material';
+import { GifListSkeleton } from '@/styledComponents';
 import { useParams } from 'react-router-dom';
 
 const SearchPage = (): JSX.Element => {
@@ -10,13 +10,11 @@ const SearchPage = (): JSX.Element => {
   return (
     <>
       <h1>Search</h1>
+      <SearchBar queryTerm={queryTerm} />
       {isLoading ? (
-        <CircularProgress />
+        <GifListSkeleton skeletonsQty={8} />
       ) : (
-        <>
-          <SearchBar queryTerm={queryTerm} />
-          <GifList gifs={gifs} queryTerm={queryTerm} />
-        </>
+        <GifResults gifs={gifs} queryTerm={queryTerm} />
       )}
     </>
   );
