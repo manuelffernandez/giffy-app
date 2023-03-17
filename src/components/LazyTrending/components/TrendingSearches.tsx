@@ -3,8 +3,8 @@ import { getTrendingTerms } from '@/services';
 import { CustomRouterLink } from '@/styledComponents';
 import { randomColorGenerator } from '@/utils';
 import { Box, Container, Typography } from '@mui/material';
-import CircularProgress from '@mui/material/CircularProgress';
 import { useEffect, useState } from 'react';
+import TrendingSkeleton from './TrendingSkeleton';
 
 const TrendingSearches = (): JSX.Element => {
   const [trends, setTrends] = useState<string[]>([]);
@@ -35,7 +35,7 @@ const TrendingSearches = (): JSX.Element => {
         TRENDING
       </Typography>
       {isLoading ? (
-        <CircularProgress />
+        <TrendingSkeleton />
       ) : (
         <Container
           component='ul'

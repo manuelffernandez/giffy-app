@@ -1,6 +1,7 @@
 import { useLazyLoad } from '@/hooks';
 import { Box } from '@mui/material';
 import { lazy, Suspense } from 'react';
+import { TrendingSkeleton } from './components';
 
 const TrendingSearches = lazy(
   async () => await import('./components/TrendingSearches')
@@ -11,7 +12,7 @@ const LazyTrending = (): JSX.Element => {
 
   return (
     <Box ref={fromRef}>
-      <Suspense fallback={'cargando...'}>
+      <Suspense fallback={<TrendingSkeleton />}>
         {isNear ? <TrendingSearches /> : null}
       </Suspense>
     </Box>
