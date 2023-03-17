@@ -2,6 +2,10 @@ export interface Gif {
   title: string;
   url: string;
   id: string;
+  measures: {
+    width: number;
+    height: number;
+  };
 }
 
 export interface KeyValueParam {

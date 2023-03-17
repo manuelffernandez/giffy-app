@@ -37,10 +37,17 @@ export const getGifs = async (
       const gifs: Gif[] = resBody.data.map((gifObject: any): Gif => {
         const { title, images, id } = gifObject;
 
+        // eslint-disable-next-line @typescript-eslint/naming-convention
+        const { fixed_width } = images;
+
         return {
           title,
-          url: images.fixed_width.url,
+          url: fixed_width.url,
           id,
+          measures: {
+            width: parseInt(fixed_width.width),
+            height: parseInt(fixed_width.height),
+          },
         };
       });
 
@@ -73,11 +80,16 @@ export const getGif = async (
     })
     .then(resBody => {
       const { title, images, id } = resBody.data[0];
+      const { original } = images;
 
       const gif: Gif = {
         title,
-        url: images.original.url,
+        url: original.url,
         id,
+        measures: {
+          width: original.width,
+          height: original.height,
+        },
       };
 
       // ts-assertion tooks 'true' as a boolean
