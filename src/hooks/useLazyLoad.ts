@@ -7,7 +7,7 @@ const useLazyLoad = (
     distance: string;
   } = { distance: '100px' }
 ): { isNear: boolean; fromRef: MutableRefObject<Element | undefined> } => {
-  const [isNear, setIsNear] = useState<boolean>(true);
+  const [isNear, setIsNear] = useState<boolean>(false);
   const fromRef = useRef<Element>();
 
   useEffect(() => {
