@@ -5,10 +5,12 @@ interface Props {
   title: string;
   url: string;
   id: string;
+  height: number;
 }
 
 const GifItem = (props: Props): JSX.Element => {
-  const { title, url, id } = props;
+  const { title, url, id, height } = props;
+
   return (
     <ImageListItem
       sx={{
@@ -16,7 +18,10 @@ const GifItem = (props: Props): JSX.Element => {
         position: 'relative',
       }}>
       <CustomRouterLink to={`/gif/${id}`}>
-        <Box component='img' src={url} width='100%'></Box>
+        <Box
+          component='img'
+          src={url}
+          sx={{ width: '100%', height, backgroundColor: 'grey.400' }}></Box>
         <Typography
           sx={{
             fontSize: 'small',
