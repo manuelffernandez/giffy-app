@@ -9,7 +9,7 @@ interface Params {
 const useGifs = (params: Params): { isLoading: boolean; gifs: Gif[] } => {
   const { queryTerm } = params;
 
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [gifs, setGifs] = useState<Gif[]>([]);
 
   const handleResponse = (response: AdaptedResponse<VariousGif>): void => {
@@ -23,8 +23,6 @@ const useGifs = (params: Params): { isLoading: boolean; gifs: Gif[] } => {
   };
 
   useEffect(() => {
-    setIsLoading(true);
-
     // avoid no-floating-promises error
     void getGifs(queryTerm).then(res => {
       handleResponse(res);

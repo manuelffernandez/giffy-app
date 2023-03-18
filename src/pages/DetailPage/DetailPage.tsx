@@ -1,5 +1,5 @@
 import { useGif } from '@/hooks';
-import { Container } from '@mui/material';
+import { CircularProgress, Container } from '@mui/material';
 import { useParams } from 'react-router-dom';
 
 const DetailPage = (): JSX.Element => {
@@ -10,7 +10,7 @@ const DetailPage = (): JSX.Element => {
   return (
     <>
       {isLoading ? (
-        <h1>Loading...</h1>
+        <CircularProgress />
       ) : (
         <Container
           sx={{

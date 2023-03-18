@@ -1,14 +1,21 @@
+import { useLazyLoad } from '@/hooks';
 import { CustomRouterLink } from '@/styledComponents';
 import { Box, ImageListItem, Typography } from '@mui/material';
+import { lazy, Suspense } from 'react';
 
 interface Props {
   title: string;
   url: string;
   id: string;
+  height: number;
 }
 
-const GifItem = (props: Props): JSX.Element => {
-  const { title, url, id } = props;
+const GifItemImg = lazy(async () => await import('./components/GifItemImg'));
+
+const LazyGifItem = (props: Props): JSX.Element => {
+  const { isNear, fromRef } = useLazyLoad({ distance: '0px' });
+  const { title, url, id, height } = props;
+
   return (
     <ImageListItem
       sx={{
@@ -16,7 +23,11 @@ const GifItem = (props: Props): JSX.Element => {
         position: 'relative',
       }}>
       <CustomRouterLink to={`/gif/${id}`}>
-        <Box component='img' src={url} width='100%'></Box>
+        <Box
+          ref={fromRef}
+          sx={{ width: '100%', height, backgroundColor: 'grey.400' }}>
+          <Suspense>{isNear ? <GifItemImg src={url} /> : null}</Suspense>
+        </Box>
         <Typography
           sx={{
             fontSize: 'small',
@@ -35,4 +46,4 @@ const GifItem = (props: Props): JSX.Element => {
   );
 };
 
-export default GifItem;
+export default LazyGifItem;

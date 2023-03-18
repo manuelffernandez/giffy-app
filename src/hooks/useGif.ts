@@ -9,8 +9,13 @@ interface Params {
 const useGif = (params: Params): { isLoading: boolean; gif: Gif } => {
   const { gifId } = params;
 
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [gif, setGif] = useState<Gif>({ title: '', id: '', url: '' });
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [gif, setGif] = useState<Gif>({
+    title: '',
+    id: '',
+    url: '',
+    size: { width: 0, height: 0 },
+  });
 
   const handleResponse = (response: AdaptedResponse<OneGif>): void => {
     setIsLoading(false);
@@ -23,8 +28,6 @@ const useGif = (params: Params): { isLoading: boolean; gif: Gif } => {
   };
 
   useEffect(() => {
-    setIsLoading(true);
-
     // avoid no-floating-promises error
     void getGif(gifId).then(res => {
       handleResponse(res);

@@ -6,6 +6,7 @@ const CustomRouterLink = styled(Link)(() => ({
   flexDirection: 'row',
   alignItems: 'center',
   color: 'inherit',
+  textDecoration: 'none',
 }));
 
 export default CustomRouterLink;
