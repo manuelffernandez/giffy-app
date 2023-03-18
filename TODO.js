@@ -4,4 +4,4 @@
 // TODO: make adapter to handle gif size
 // TODO: fix property type error on RootPage.tsx
 // TODO: make searchBar font size bigger
-// TODO: create func to make easier the cols setting in GifList comp
+// TODO: create func to make easier the responsive cols setting
