@@ -21,15 +21,20 @@ const GifList = (props: Props): JSX.Element => {
       cols={colsQty}
       gap={gapSize}
       sx={{ overflow: 'hidden' }}>
-      {gifs.map(gif => (
-        <LazyGifItem
-          key={gif.id}
-          id={gif.id}
-          title={gif.title}
-          url={gif.url}
-          height={(currentColWidth / gif.size.width) * gif.size.height}
-        />
-      ))}
+      {gifs.map(gif => {
+        const proportionalHeight =
+          (currentColWidth / gif.size.width) * gif.size.height;
+
+        return (
+          <LazyGifItem
+            key={gif.id}
+            id={gif.id}
+            title={gif.title}
+            url={gif.url}
+            height={proportionalHeight}
+          />
+        );
+      })}
     </ImageList>
   );
 };
