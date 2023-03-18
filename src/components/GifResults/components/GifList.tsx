@@ -1,4 +1,4 @@
-import { GifItem } from '@/components/GifItem';
+import { LazyGifItem } from '@/components/LazyGifItem';
 import { type Gif } from '@/interfaces';
 import { ImageList } from '@mui/material';
 
@@ -22,7 +22,7 @@ const GifList = (props: Props): JSX.Element => {
       gap={gapSize}
       sx={{ overflow: 'hidden' }}>
       {gifs.map(gif => (
-        <GifItem
+        <LazyGifItem
           key={gif.id}
           id={gif.id}
           title={gif.title}
