@@ -44,7 +44,7 @@ export const getGifs = async (
           title,
           url: fixed_width.url,
           id,
-          measures: {
+          size: {
             width: parseInt(fixed_width.width),
             height: parseInt(fixed_width.height),
           },
@@ -86,7 +86,7 @@ export const getGif = async (
         title,
         url: original.url,
         id,
-        measures: {
+        size: {
           width: original.width,
           height: original.height,
         },

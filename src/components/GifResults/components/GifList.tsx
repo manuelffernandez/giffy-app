@@ -27,7 +27,7 @@ const GifList = (props: Props): JSX.Element => {
           id={gif.id}
           title={gif.title}
           url={gif.url}
-          height={(currentColWidth / gif.measures.width) * gif.measures.height}
+          height={(currentColWidth / gif.size.width) * gif.size.height}
         />
       ))}
     </ImageList>
