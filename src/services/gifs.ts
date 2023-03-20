@@ -52,7 +52,11 @@ export const getGifs = async (
       });
 
       // ts-assertion tooks 'true' as a boolean
-      return { isOk: true as true, gifs };
+      return {
+        isOk: true as true,
+        gifs,
+        pagination: { ...resBody.pagination },
+      };
     })
     .catch(errorHandler);
 };

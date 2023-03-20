@@ -18,6 +18,11 @@ export interface OneGif {
 }
 
 export interface VariousGif {
+  pagination: {
+    totalCount: number;
+    count: number;
+    offset: number;
+  };
   gifs: Gif[];
 }
 
