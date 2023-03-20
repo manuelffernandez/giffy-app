@@ -1,4 +1,4 @@
-import { useLazyLoad } from '@/hooks';
+import { useNearScreen } from '@/hooks';
 import { CustomRouterLink } from '@/styledComponents';
 import { Box, ImageListItem, Typography } from '@mui/material';
 import { lazy, Suspense } from 'react';
@@ -13,7 +13,7 @@ interface Props {
 const GifItemImg = lazy(async () => await import('./components/GifItemImg'));
 
 const LazyGifItem = (props: Props): JSX.Element => {
-  const { isNear, fromRef } = useLazyLoad({ distance: '0px' });
+  const { isNear, fromRef } = useNearScreen({ distance: '0px' });
   const { title, url, id, height } = props;
 
   return (
