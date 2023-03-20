@@ -14,7 +14,10 @@ const SearchPage = (): JSX.Element => {
       {isLoading ? (
         <GifListSkeleton skeletonsQty={8} />
       ) : (
-        <GifResults gifs={gifs} queryTerm={queryTerm} />
+        <>
+          <GifResults gifs={gifs} queryTerm={queryTerm} />
+          <div id='visor'></div>
+        </>
       )}
     </>
   );
