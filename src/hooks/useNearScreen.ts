@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, type MutableRefObject } from 'react';
 
-const useLazyLoad = (
+const useNearScreen = (
   {
     distance,
   }: {
@@ -33,4 +33,4 @@ const useLazyLoad = (
   return { isNear, fromRef };
 };
 
-export default useLazyLoad;
+export default useNearScreen;
