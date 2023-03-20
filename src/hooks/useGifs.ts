@@ -24,7 +24,7 @@ const useGifs = (params: Params): { isLoading: boolean; gifs: Gif[] } => {
 
   useEffect(() => {
     // avoid no-floating-promises error
-    void getGifs(queryTerm).then(res => {
+    void getGifs({ queryTerm }).then(res => {
       handleResponse(res);
     });
   }, [queryTerm]);

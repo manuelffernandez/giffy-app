@@ -8,15 +8,17 @@ import {
 } from '@/interfaces';
 import { errorHandler, setURLParams } from '@/services/utils';
 
-export const getGifs = async (
-  keyword: string
-): Promise<AdaptedResponse<VariousGif> | AdaptedResponse<never>> => {
+export const getGifs = async ({
+  queryTerm,
+}: {
+  queryTerm: string;
+}): Promise<AdaptedResponse<VariousGif> | AdaptedResponse<never>> => {
   // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
   const GIFS_URL = new URL(`${import.meta.env.VITE_BASE_URL}/gifs/search`);
 
   const queryParams: KeyValueParam[] = [
     { paramKey: 'api_key', paramValue: import.meta.env.VITE_API_KEY },
-    { paramKey: 'q', paramValue: keyword },
+    { paramKey: 'q', paramValue: queryTerm },
     { paramKey: 'limit', paramValue: '25' },
     { paramKey: 'offset', paramValue: '0' },
     { paramKey: 'rating', paramValue: 'g' },
