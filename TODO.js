@@ -6,3 +6,4 @@
 // TODO: make searchBar font size bigger
 // TODO: create func to make easier the responsive cols setting
 // TODO: remove masonry effect from GifList
+// TODO: remove noMoreResults title when no results are founded in the first call of SearchPage
