@@ -6,7 +6,7 @@ import {
 } from '@/interfaces';
 import { errorHandler, setURLParams } from '@/services/utils';
 
-export const getTrendingTerms = async (): Promise<
+const getTrendingTerms = async (): Promise<
   AdaptedResponse<TrendingTerms> | AdaptedResponse<never>
 > => {
   const TRENDING_URL = new URL(
@@ -35,3 +35,5 @@ export const getTrendingTerms = async (): Promise<
     })
     .catch(errorHandler);
 };
+
+export default getTrendingTerms;
