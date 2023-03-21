@@ -46,6 +46,7 @@ const useGifs = (params: Params) => {
       if (res.isOk) {
         setGifs(prevGifs => {
           // sometimes the API returns repeated gifs when the offset is setted on the call
+          // this functionality may causes to not render all the requested gifs
           const filteredGifs = res.gifs.filter(
             gif => prevGifs.find(prevGif => prevGif.id === gif.id) === undefined
           );
