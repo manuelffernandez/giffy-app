@@ -1,19 +1,20 @@
 import { GifResults, SearchBar } from '@/components';
 import { useGifs, useNearScreen } from '@/hooks';
 import { GifListSkeleton } from '@/styledComponents';
-import { Typography } from '@mui/material';
+import { Box, LinearProgress, Typography } from '@mui/material';
 import debounce from 'just-debounce-it';
 import { useCallback, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 
 const SearchPage = (): JSX.Element => {
   const { queryTerm } = useParams() as { queryTerm: string };
-  const { gifs, isLoading, pageForward, noMoreResults } = useGifs({
-    queryTerm,
-  });
+  const { gifs, isLoading, noMoreResults, isLoadingPage, pageForward } =
+    useGifs({
+      queryTerm,
+    });
   const visorRef = useRef<HTMLDivElement>(null);
   const { isNear } = useNearScreen({
-    distance: '50px',
+    distance: '150px',
     externalRef: isLoading ? undefined : visorRef,
     once: false,
   });
@@ -21,7 +22,7 @@ const SearchPage = (): JSX.Element => {
   const loadMoreGifs = useCallback(
     debounce(() => {
       pageForward();
-    }, 500),
+    }, 200),
     []
   );
 
@@ -40,6 +41,11 @@ const SearchPage = (): JSX.Element => {
       ) : (
         <>
           <GifResults minHeight='1000px' gifs={gifs} queryTerm={queryTerm} />
+          {isLoadingPage ? (
+            <Box sx={{ width: '50%', marginX: 'auto', marginTop: 3 }}>
+              <LinearProgress sx={{ height: 10 }} />
+            </Box>
+          ) : null}
           {noMoreResults ? (
             <Typography>No more results for {queryTerm}</Typography>
           ) : null}
