@@ -25,7 +25,9 @@ const SearchPage = (): JSX.Element => {
   );
 
   useEffect(() => {
-    if (isNear) loadMoreGifs();
+    if (isNear) {
+      loadMoreGifs();
+    }
   }, [isNear]);
 
   return (
