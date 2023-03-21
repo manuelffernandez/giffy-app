@@ -1,13 +1,14 @@
 import { GifResults, SearchBar } from '@/components';
 import { useGifs, useNearScreen } from '@/hooks';
 import { GifListSkeleton } from '@/styledComponents';
+import { Typography } from '@mui/material';
 import debounce from 'just-debounce-it';
 import { useCallback, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 
 const SearchPage = (): JSX.Element => {
   const { queryTerm } = useParams() as { queryTerm: string };
-  const { gifs, isLoading, pageForward } = useGifs({
+  const { gifs, isLoading, pageForward, noMoreResults } = useGifs({
     queryTerm,
   });
   const visorRef = useRef<HTMLDivElement>(null);
@@ -26,7 +27,7 @@ const SearchPage = (): JSX.Element => {
 
   useEffect(() => {
     if (isNear) {
-      loadMoreGifs();
+      !noMoreResults && loadMoreGifs();
     }
   }, [isNear]);
 
@@ -39,6 +40,9 @@ const SearchPage = (): JSX.Element => {
       ) : (
         <>
           <GifResults minHeight='1000px' gifs={gifs} queryTerm={queryTerm} />
+          {noMoreResults ? (
+            <Typography>No more results for {queryTerm}</Typography>
+          ) : null}
           <div id='visor' ref={visorRef}></div>
         </>
       )}
