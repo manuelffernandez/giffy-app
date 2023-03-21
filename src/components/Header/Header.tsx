@@ -4,7 +4,7 @@ import { AppBar, Toolbar } from '@mui/material';
 
 const Header = (): JSX.Element => {
   return (
-    <AppBar position='sticky' sx={{ mb: 5 }}>
+    <AppBar position='sticky' sx={{ mb: 5, backgroundColor: 'primary.main' }}>
       <Toolbar>
         <CustomRouterLink to='/'>
           <GifIcon fontSize='large' />

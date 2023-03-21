@@ -7,12 +7,15 @@ import { lazy, Suspense } from 'react';
 interface Props {
   gifs: Gif[];
   queryTerm: string;
+  // minHeight prop was createad to separate the 'visor' div defined in Searchfrom from the viewport when gifs are loading and the height is 0.
+  // This avoids the observer of useNearScreen to detects it before the gifs are loaded.
+  minHeight?: string;
 }
 
 const GifList = lazy(async () => await import('./components/GifList'));
 
 const GifResults = (props: Props): JSX.Element => {
-  const { gifs, queryTerm } = props;
+  const { gifs, queryTerm, minHeight } = props;
   const { displayGifList, colsQty, containerRef, containerWidth } =
     useGifList();
 
@@ -24,7 +27,8 @@ const GifResults = (props: Props): JSX.Element => {
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
+        minHeight: minHeight ?? '0px',
       }}>
       {gifs.length !== 0 ? (
         <>

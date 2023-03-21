@@ -10,7 +10,7 @@ export interface Gif {
 
 export interface KeyValueParam {
   paramKey: string;
-  paramValue: string;
+  paramValue: string | number;
 }
 
 export interface OneGif {
@@ -18,6 +18,11 @@ export interface OneGif {
 }
 
 export interface VariousGif {
+  pagination: {
+    totalCount: number;
+    count: number;
+    offset: number;
+  };
   gifs: Gif[];
 }
 

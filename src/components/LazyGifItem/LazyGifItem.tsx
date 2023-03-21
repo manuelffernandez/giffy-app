@@ -26,7 +26,9 @@ const LazyGifItem = (props: Props): JSX.Element => {
         <Box
           ref={fromRef}
           sx={{ width: '100%', height, backgroundColor: 'grey.400' }}>
-          <Suspense>{isNear ? <GifItemImg src={url} /> : null}</Suspense>
+          <Suspense>
+            {isNear ? <GifItemImg src={url} alt={title} /> : null}
+          </Suspense>
         </Box>
         <Typography
           sx={{
