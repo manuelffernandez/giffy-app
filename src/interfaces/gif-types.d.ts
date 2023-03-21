@@ -10,7 +10,7 @@ export interface Gif {
 
 export interface KeyValueParam {
   paramKey: string;
-  paramValue: string;
+  paramValue: string | number;
 }
 
 export interface OneGif {
