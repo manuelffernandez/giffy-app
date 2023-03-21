@@ -29,6 +29,7 @@ const useGifs = (params: Params) => {
   };
 
   useEffect(() => {
+    setNoMoreResults(false);
     // avoid no-floating-promises error
     void getGifs({ queryTerm, limit: RESULTS_QTY }).then(res => {
       setIsLoading(false);
