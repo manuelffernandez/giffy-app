@@ -11,12 +11,14 @@ interface Params {
   queryTerm: string;
   pageNumber?: number;
   limit?: number;
+  offset?: number;
 }
 
 const getGifs = async ({
   queryTerm,
   pageNumber = 0,
   limit = 20,
+  offset = limit * pageNumber,
 }: Params): Promise<AdaptedResponse<VariousGif> | AdaptedResponse<never>> => {
   // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
   const GIFS_URL = new URL(`${import.meta.env.VITE_BASE_URL}/gifs/search`);
@@ -24,7 +26,7 @@ const getGifs = async ({
   const queryParams: KeyValueParam[] = [
     { paramKey: 'api_key', paramValue: import.meta.env.VITE_API_KEY },
     { paramKey: 'q', paramValue: queryTerm },
-    { paramKey: 'offset', paramValue: limit * pageNumber },
+    { paramKey: 'offset', paramValue: offset },
     { paramKey: 'limit', paramValue: limit },
     { paramKey: 'rating', paramValue: 'g' },
     { paramKey: 'lang', paramValue: 'en' },
