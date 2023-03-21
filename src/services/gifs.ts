@@ -10,17 +10,20 @@ import { errorHandler, setURLParams } from '@/services/utils';
 
 export const getGifs = async ({
   queryTerm,
+  pageNumber = 0,
 }: {
   queryTerm: string;
+  pageNumber?: number;
 }): Promise<AdaptedResponse<VariousGif> | AdaptedResponse<never>> => {
   // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
   const GIFS_URL = new URL(`${import.meta.env.VITE_BASE_URL}/gifs/search`);
+  const RESULTS_QTY = 10;
 
   const queryParams: KeyValueParam[] = [
     { paramKey: 'api_key', paramValue: import.meta.env.VITE_API_KEY },
     { paramKey: 'q', paramValue: queryTerm },
-    { paramKey: 'limit', paramValue: '25' },
-    { paramKey: 'offset', paramValue: '0' },
+    { paramKey: 'offset', paramValue: RESULTS_QTY * pageNumber },
+    { paramKey: 'limit', paramValue: RESULTS_QTY },
     { paramKey: 'rating', paramValue: 'g' },
     { paramKey: 'lang', paramValue: 'en' },
   ];
