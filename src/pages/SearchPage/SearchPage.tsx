@@ -27,8 +27,11 @@ const SearchPage = (): JSX.Element => {
   );
 
   useEffect(() => {
+    console.log(isLoadingPage);
     if (isNear) {
-      !noMoreResults && loadMoreGifs();
+      if (!noMoreResults && gifs.length > 0) {
+        loadMoreGifs();
+      }
     }
   }, [isNear]);
 
@@ -46,7 +49,7 @@ const SearchPage = (): JSX.Element => {
               <LinearProgress sx={{ height: 10 }} />
             </Box>
           ) : null}
-          {noMoreResults ? (
+          {noMoreResults && gifs.length > 0 ? (
             <Typography
               component='p'
               variant='h5'
