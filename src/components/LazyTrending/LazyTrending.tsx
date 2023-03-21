@@ -8,7 +8,7 @@ const TrendingSearches = lazy(
 );
 
 const LazyTrending = (): JSX.Element => {
-  const { isNear, fromRef } = useNearScreen();
+  const { isNear, fromRef } = useNearScreen({});
 
   return (
     <Box ref={fromRef}>
