@@ -41,7 +41,7 @@ const useGifs = (params: Params) => {
     setIsLoadingPage(true);
     if (pageNumber === INITIAL_PAGE_NUMBER) return;
     // avoid no-floating-promises error
-    void getGifs({ queryTerm, pageNumber }).then(res => {
+    void getGifs({ queryTerm, pageNumber, limit: 10 }).then(res => {
       setIsLoadingPage(false);
       if (res.isOk) {
         setGifs(prevGifs => {
