@@ -5,3 +5,4 @@
 // TODO: fix property type error on RootPage.tsx
 // TODO: make searchBar font size bigger
 // TODO: create func to make easier the responsive cols setting
+// TODO: remove masonry effect from GifList
