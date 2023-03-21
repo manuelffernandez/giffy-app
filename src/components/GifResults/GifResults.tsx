@@ -27,7 +27,7 @@ const GifResults = (props: Props): JSX.Element => {
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
         minHeight: minHeight ?? '0px',
       }}>
       {gifs.length !== 0 ? (
