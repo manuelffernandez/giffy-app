@@ -18,6 +18,7 @@ const useGifs = (params: Params) => {
   const [isLoadingPage, setIsLoadingPage] = useState<boolean>(false);
   const [gifs, setGifs] = useState<Gif[]>([]);
   const [pageNumber, setPageNumber] = useState<number>(INITIAL_PAGE_NUMBER);
+  const [noMoreResults, setNoMoreResults] = useState<boolean>(false);
 
   const pageForward = (): void => {
     setPageNumber(prevPage => prevPage + 1);
@@ -52,6 +53,8 @@ const useGifs = (params: Params) => {
     }).then(res => {
       setIsLoadingPage(false);
       if (res.isOk) {
+        if (res.pagination.count === 0) setNoMoreResults(true);
+
         setGifs(prevGifs => {
           // sometimes the API returns repeated gifs when the offset is setted on the call
           // this functionality may causes to not render all the requested gifs
@@ -66,7 +69,15 @@ const useGifs = (params: Params) => {
     });
   }, [pageNumber]);
 
-  return { isLoading, isLoadingPage, gifs, pageNumber, pageForward, pageBack };
+  return {
+    isLoading,
+    isLoadingPage,
+    gifs,
+    noMoreResults,
+    pageNumber,
+    pageForward,
+    pageBack,
+  };
 };
 
 export default useGifs;
