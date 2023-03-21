@@ -42,10 +42,12 @@ const useGifs = (params: Params) => {
   }, [queryTerm]);
 
   useEffect(() => {
-    setIsLoadingPage(true);
     if (pageNumber === INITIAL_PAGE_NUMBER) return;
-    // avoid no-floating-promises error
+
     const offset = pageNumber * PAGINATE_RESULTS_QTY + RESULTS_QTY;
+    setIsLoadingPage(true);
+
+    // avoid no-floating-promises error
     void getGifs({
       queryTerm,
       pageNumber,
