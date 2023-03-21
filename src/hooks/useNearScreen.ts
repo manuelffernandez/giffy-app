@@ -33,7 +33,7 @@ const useNearScreen = ({
       const elementEntry = entries[0];
       if (elementEntry.isIntersecting) {
         setIsNear(true);
-        once && observer.unobserve(elementToObserve);
+        once && observer.disconnect();
       } else {
         !once && setIsNear(false);
       }
