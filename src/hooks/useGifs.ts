@@ -1,4 +1,4 @@
-import { type AdaptedResponse, type Gif, type VariousGif } from '@/interfaces';
+import { type Gif } from '@/interfaces';
 import { getGifs } from '@/services';
 import { useEffect, useState } from 'react';
 
@@ -6,30 +6,52 @@ interface Params {
   queryTerm: string;
 }
 
-const useGifs = (params: Params): { isLoading: boolean; gifs: Gif[] } => {
+const INITIAL_PAGE_NUMBER = 0;
+
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+const useGifs = (params: Params) => {
   const { queryTerm } = params;
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isLoadingPage, setIsLoadingPage] = useState<boolean>(false);
   const [gifs, setGifs] = useState<Gif[]>([]);
+  const [pageNumber, setPageNumber] = useState<number>(INITIAL_PAGE_NUMBER);
 
-  const handleResponse = (response: AdaptedResponse<VariousGif>): void => {
-    setIsLoading(false);
+  const pageForward = (): void => {
+    setPageNumber(prevPage => prevPage + 1);
+  };
 
-    if (response.isOk) {
-      setGifs(response.gifs);
-    } else {
-      console.log('oh oh');
-    }
+  const pageBack = (): void => {
+    setPageNumber(prevPage => prevPage - 1);
   };
 
   useEffect(() => {
     // avoid no-floating-promises error
     void getGifs({ queryTerm }).then(res => {
-      handleResponse(res);
+      setIsLoading(false);
+      if (res.isOk) {
+        setGifs(res.gifs);
+      } else {
+        console.log('oh oh');
+      }
     });
   }, [queryTerm]);
 
-  return { isLoading, gifs };
+  useEffect(() => {
+    setIsLoadingPage(true);
+    if (pageNumber === INITIAL_PAGE_NUMBER) return;
+    // avoid no-floating-promises error
+    void getGifs({ queryTerm, pageNumber }).then(res => {
+      setIsLoadingPage(false);
+      if (res.isOk) {
+        setGifs(prevGifs => prevGifs.concat(res.gifs));
+      } else {
+        console.log('oh oh');
+      }
+    });
+  }, [pageNumber]);
+
+  return { isLoading, isLoadingPage, gifs, pageNumber, pageForward, pageBack };
 };
 
 export default useGifs;
