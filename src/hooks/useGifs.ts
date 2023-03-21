@@ -11,6 +11,8 @@ const INITIAL_PAGE_NUMBER = 0;
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 const useGifs = (params: Params) => {
   const { queryTerm } = params;
+  const RESULTS_QTY = 20;
+  const PAGINATE_RESULTS_QTY = 10;
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isLoadingPage, setIsLoadingPage] = useState<boolean>(false);
@@ -27,7 +29,7 @@ const useGifs = (params: Params) => {
 
   useEffect(() => {
     // avoid no-floating-promises error
-    void getGifs({ queryTerm }).then(res => {
+    void getGifs({ queryTerm, limit: RESULTS_QTY }).then(res => {
       setIsLoading(false);
       if (res.isOk) {
         setGifs(res.gifs);
@@ -41,7 +43,13 @@ const useGifs = (params: Params) => {
     setIsLoadingPage(true);
     if (pageNumber === INITIAL_PAGE_NUMBER) return;
     // avoid no-floating-promises error
-    void getGifs({ queryTerm, pageNumber, limit: 10 }).then(res => {
+    const offset = pageNumber * PAGINATE_RESULTS_QTY + RESULTS_QTY;
+    void getGifs({
+      queryTerm,
+      pageNumber,
+      limit: PAGINATE_RESULTS_QTY,
+      offset,
+    }).then(res => {
       setIsLoadingPage(false);
       if (res.isOk) {
         setGifs(prevGifs => {
