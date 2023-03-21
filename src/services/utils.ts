@@ -10,7 +10,16 @@ export const setURLParams = (
   KeyValueParams: KeyValueParam[]
 ): URL => {
   KeyValueParams.forEach(KeyValueParam => {
-    URL.searchParams.set(KeyValueParam.paramKey, KeyValueParam.paramValue);
+    if (typeof KeyValueParam.paramValue === 'number') {
+      URL.searchParams.set(
+        KeyValueParam.paramKey,
+        KeyValueParam.paramValue.toString()
+      );
+    }
+    URL.searchParams.set(
+      KeyValueParam.paramKey,
+      KeyValueParam.paramValue as string
+    );
   });
   return URL;
 };
