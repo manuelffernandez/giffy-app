@@ -1,6 +1,6 @@
 import { LazyGifItem } from '@/components/LazyGifItem';
 import { type Gif } from '@/interfaces';
-import { ImageList } from '@mui/material';
+import Masonry from '@mui/lab/Masonry';
 
 interface Props {
   gifs: Gif[];
@@ -10,17 +10,13 @@ interface Props {
 
 const GifList = (props: Props): JSX.Element => {
   const { gifs, containerWidth, colsQty } = props;
-  const gapSize = 8;
+  const gapSize = 2;
   const gapsBetweenCols = colsQty - 1;
   const currentColWidth =
     (containerWidth - gapSize * gapsBetweenCols) / colsQty;
 
   return (
-    <ImageList
-      variant='masonry'
-      cols={colsQty}
-      gap={gapSize}
-      sx={{ overflow: 'hidden' }}>
+    <Masonry columns={colsQty} spacing={gapSize} sx={{ overflow: 'hidden' }}>
       {gifs.map(gif => {
         const proportionalHeight =
           (currentColWidth / gif.size.width) * gif.size.height;
@@ -35,7 +31,7 @@ const GifList = (props: Props): JSX.Element => {
           />
         );
       })}
-    </ImageList>
+    </Masonry>
   );
 };
 
