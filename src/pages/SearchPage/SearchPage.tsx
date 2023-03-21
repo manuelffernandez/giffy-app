@@ -1,20 +1,31 @@
 import { GifResults, SearchBar } from '@/components';
 import { useGifs, useNearScreen } from '@/hooks';
 import { GifListSkeleton } from '@/styledComponents';
-import { useEffect, useRef } from 'react';
+import debounce from 'just-debounce-it';
+import { useCallback, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 
 const SearchPage = (): JSX.Element => {
   const { queryTerm } = useParams() as { queryTerm: string };
-  const { gifs, isLoading } = useGifs({ queryTerm });
+  const { gifs, isLoading, pageForward } = useGifs({
+    queryTerm,
+  });
   const visorRef = useRef<HTMLDivElement>(null);
   const { isNear } = useNearScreen({
+    distance: '50px',
     externalRef: isLoading ? undefined : visorRef,
     once: false,
   });
 
+  const loadMoreGifs = useCallback(
+    debounce(() => {
+      pageForward();
+    }, 500),
+    []
+  );
+
   useEffect(() => {
-    console.log(isNear);
+    if (isNear) loadMoreGifs();
   }, [isNear]);
 
   return (
