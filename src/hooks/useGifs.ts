@@ -44,7 +44,13 @@ const useGifs = (params: Params) => {
     void getGifs({ queryTerm, pageNumber }).then(res => {
       setIsLoadingPage(false);
       if (res.isOk) {
-        setGifs(prevGifs => prevGifs.concat(res.gifs));
+        setGifs(prevGifs => {
+          // sometimes the API returns repeated gifs when the offset is setted on the call
+          const filteredGifs = res.gifs.filter(
+            gif => prevGifs.find(prevGif => prevGif.id === gif.id) === undefined
+          );
+          return prevGifs.concat(filteredGifs);
+        });
       } else {
         console.log('oh oh');
       }
