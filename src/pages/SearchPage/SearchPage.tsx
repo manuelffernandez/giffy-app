@@ -47,7 +47,12 @@ const SearchPage = (): JSX.Element => {
             </Box>
           ) : null}
           {noMoreResults ? (
-            <Typography>No more results for {queryTerm}</Typography>
+            <Typography
+              component='p'
+              variant='h5'
+              sx={{ color: 'primary.main', textAlign: 'center' }}>
+              No more results for {queryTerm}
+            </Typography>
           ) : null}
           <div id='visor' ref={visorRef}></div>
         </>
