@@ -49,6 +49,7 @@ const LazyGifItem = (props: Props): JSX.Element => {
 };
 
 export default memo(LazyGifItem, (prevProps, currentProps) => {
-  if (prevProps.id === currentProps.id) return true;
-  return false;
+  return !!(
+    prevProps.id === currentProps.id && prevProps.height === currentProps.height
+  );
 });
