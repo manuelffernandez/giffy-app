@@ -39,29 +39,25 @@ const GifResults = (props: Props): JSX.Element => {
     }
   }, [isNear]);
 
-  return (
+  return isLoading ? (
+    <GifListSkeleton skeletonsQty={8} />
+  ) : (
     <>
-      {isLoading ? (
-        <GifListSkeleton skeletonsQty={8} />
-      ) : (
-        <>
-          <GifList gifs={gifs} queryTerm={queryTerm} minHeight='1000px' />
-          {isLoadingPage ? (
-            <Box sx={{ width: '50%', marginX: 'auto', marginTop: 3 }}>
-              <LinearProgress sx={{ height: 10 }} />
-            </Box>
-          ) : null}
-          {noMoreResults && gifs.length > 0 ? (
-            <Typography
-              component='p'
-              variant='h5'
-              sx={{ color: 'primary.main', textAlign: 'center' }}>
-              No more results for {queryTerm}
-            </Typography>
-          ) : null}
-          <div id='visor' ref={visorRef}></div>
-        </>
-      )}
+      <GifList gifs={gifs} queryTerm={queryTerm} minHeight='1000px' />
+      {isLoadingPage ? (
+        <Box sx={{ width: '50%', marginX: 'auto', marginTop: 3 }}>
+          <LinearProgress sx={{ height: 10 }} />
+        </Box>
+      ) : null}
+      {noMoreResults && gifs.length > 0 ? (
+        <Typography
+          component='p'
+          variant='h5'
+          sx={{ color: 'primary.main', textAlign: 'center' }}>
+          No more results for {queryTerm}
+        </Typography>
+      ) : null}
+      <div id='visor' ref={visorRef}></div>
     </>
   );
 };
