@@ -1,1 +1,1 @@
-export { default as GifDetail } from './GifDetal';
+export { default as GifDetail } from './GifDetail';

@@ -1,5 +1,5 @@
 import { useGif } from '@/hooks';
-import { CircularProgress, Container } from '@mui/material';
+import { Container, Skeleton, Typography } from '@mui/material';
 
 interface Props {
   gifId: string;
@@ -15,12 +15,21 @@ const GifDetail = (props: Props): JSX.Element => {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
+        justifyContent: 'center',
       }}>
       {isLoading ? (
-        <CircularProgress />
+        <>
+          <Skeleton
+            variant='text'
+            sx={{ width: 400, fontSize: '1.5rem', mb: 1 }}
+          />
+          <Skeleton variant='rectangular' sx={{ width: 400, height: 200 }} />
+        </>
       ) : (
         <>
-          <h2>{gif.title}</h2>
+          <Typography component='h2' variant='h4' color='primary.main'>
+            {gif.title}
+          </Typography>
           <img src={gif.url} alt={gif.title} />
         </>
       )}
