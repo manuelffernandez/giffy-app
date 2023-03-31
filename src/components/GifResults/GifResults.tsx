@@ -1,52 +1,68 @@
-import { useGifList } from '@/hooks';
-import { type Gif } from '@/interfaces';
+import { useGifs, useNearScreen } from '@/hooks';
 import { GifListSkeleton } from '@/styledComponents';
-import { Container } from '@mui/material';
-import { lazy, Suspense } from 'react';
+import { Box, LinearProgress } from '@mui/material';
+import Typography from '@mui/material/Typography';
+import debounce from 'just-debounce-it';
+import { lazy, useCallback, useEffect, useRef } from 'react';
 
 interface Props {
-  gifs: Gif[];
   queryTerm: string;
-  // minHeight prop was createad to separate the 'visor' div defined in Searchfrom from the viewport when gifs are loading and the height is 0.
-  // This avoids the observer of useNearScreen to detects it before the gifs are loaded.
-  minHeight?: string;
 }
 
 const GifList = lazy(async () => await import('./components/GifList'));
 
 const GifResults = (props: Props): JSX.Element => {
-  const { gifs, queryTerm, minHeight } = props;
-  const { displayGifList, colsQty, containerRef, containerWidth } =
-    useGifList();
+  const { queryTerm } = props;
+  const { gifs, isLoading, noMoreResults, isLoadingPage, pageForward } =
+    useGifs({
+      queryTerm,
+    });
+  const visorRef = useRef<HTMLDivElement>(null);
+  const { isNear } = useNearScreen({
+    distance: '150px',
+    externalRef: isLoading ? undefined : visorRef,
+    once: false,
+  });
+
+  const loadMoreGifs = useCallback(
+    debounce(() => {
+      pageForward();
+    }, 200),
+    []
+  );
+
+  useEffect(() => {
+    if (isNear) {
+      if (!noMoreResults && gifs.length > 0) {
+        loadMoreGifs();
+      }
+    }
+  }, [isNear]);
 
   return (
-    <Container
-      ref={containerRef}
-      // 'disableGutters'prop is required to layout the image containers, remove it will cause unexpected errors
-      disableGutters
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'flex-start',
-        minHeight: minHeight ?? '0px',
-      }}>
-      {gifs.length !== 0 ? (
-        <>
-          {queryTerm.length !== 0 ? <h2>Results for {queryTerm}</h2> : null}
-          <Suspense fallback={<GifListSkeleton />}>
-            {displayGifList ? (
-              <GifList
-                gifs={gifs}
-                colsQty={colsQty}
-                containerWidth={containerWidth}
-              />
-            ) : null}
-          </Suspense>
-        </>
+    <>
+      {isLoading ? (
+        <GifListSkeleton skeletonsQty={8} />
       ) : (
-        <h2>No GIFs found for {queryTerm}</h2>
+        <>
+          <GifList gifs={gifs} queryTerm={queryTerm} minHeight='1000px' />
+          {isLoadingPage ? (
+            <Box sx={{ width: '50%', marginX: 'auto', marginTop: 3 }}>
+              <LinearProgress sx={{ height: 10 }} />
+            </Box>
+          ) : null}
+          {noMoreResults && gifs.length > 0 ? (
+            <Typography
+              component='p'
+              variant='h5'
+              sx={{ color: 'primary.main', textAlign: 'center' }}>
+              No more results for {queryTerm}
+            </Typography>
+          ) : null}
+          <div id='visor' ref={visorRef}></div>
+        </>
       )}
-    </Container>
+    </>
   );
 };
 
