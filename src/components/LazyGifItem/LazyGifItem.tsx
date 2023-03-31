@@ -1,7 +1,7 @@
 import { useNearScreen } from '@/hooks';
 import { CustomRouterLink } from '@/styledComponents';
 import { Box, ImageListItem, Typography } from '@mui/material';
-import { lazy, Suspense } from 'react';
+import { lazy, memo, Suspense } from 'react';
 
 interface Props {
   title: string;
@@ -48,4 +48,7 @@ const LazyGifItem = (props: Props): JSX.Element => {
   );
 };
 
-export default LazyGifItem;
+export default memo(LazyGifItem, (prevProps, currentProps) => {
+  if (prevProps.id === currentProps.id) return true;
+  return false;
+});
