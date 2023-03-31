@@ -1,27 +1,21 @@
-import { useGif } from '@/hooks';
-import { CircularProgress, Container } from '@mui/material';
-import { useParams } from 'react-router-dom';
+import { GifDetail } from '@/components';
+import { Button } from '@mui/material';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const DetailPage = (): JSX.Element => {
-  // ts assertion
   const { gifId } = useParams() as { gifId: string };
-  const { isLoading, gif } = useGif({ gifId });
+  const navigate = useNavigate();
 
   return (
     <>
-      {isLoading ? (
-        <CircularProgress />
-      ) : (
-        <Container
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}>
-          <h2>{gif.title}</h2>
-          <img src={gif.url} alt={gif.title} />
-        </Container>
-      )}
+      <Button
+        variant='outlined'
+        onClick={() => {
+          navigate(-1);
+        }}>
+        Go back
+      </Button>
+      <GifDetail gifId={gifId} />
     </>
   );
 };
