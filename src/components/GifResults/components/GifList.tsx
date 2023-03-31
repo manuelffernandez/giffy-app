@@ -34,7 +34,7 @@ const GifList = (props: Props): JSX.Element => {
       }}>
       {gifs.length !== 0 ? (
         <>
-          <Typography component='h2' variant='h4' color='secondary.main'>
+          <Typography component='h2' variant='h4' color='success.main'>
             Results for {queryTerm}
           </Typography>
           <Suspense fallback={<GifListSkeleton />}>
