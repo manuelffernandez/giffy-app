@@ -1,6 +1,6 @@
 import { useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type RefObject } from 'react';
 
 // ******** EXPLANATION ******** //
 // The idea of this custom hook is to be able to get by implementing a reference ('useRef')
@@ -27,9 +27,10 @@ import { useEffect, useRef, useState } from 'react';
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 const useGifList = () => {
-  const containerRef = useRef(null);
+  const containerRef = useRef(null) as RefObject<HTMLDivElement>;
   const theme = useTheme();
   const matchDownMd = useMediaQuery(theme.breakpoints.down('md'));
+  const matchDownSm = useMediaQuery(theme.breakpoints.down('sm'));
 
   const [colsQty, setColsQty] = useState<number>(0);
   const [containerWidth, setContainerWidth] = useState<number>(0);
@@ -37,11 +38,11 @@ const useGifList = () => {
 
   useEffect(() => {
     const handleResize = (): void => {
-      setContainerWidth(containerRef.current?.offsetWidth);
+      setContainerWidth(containerRef.current?.offsetWidth as number);
     };
     window.addEventListener('resize', handleResize);
 
-    setContainerWidth(containerRef.current?.offsetWidth);
+    setContainerWidth(containerRef.current?.offsetWidth as number);
     setDisplayGifList(true);
 
     return () => {
@@ -50,8 +51,14 @@ const useGifList = () => {
   }, []);
 
   useEffect(() => {
-    setColsQty(matchDownMd ? 2 : 4);
-  }, [matchDownMd]);
+    if (matchDownSm) {
+      setColsQty(1);
+    } else if (matchDownMd) {
+      setColsQty(2);
+    } else {
+      setColsQty(4);
+    }
+  }, [matchDownMd, matchDownSm]);
 
   return { displayGifList, colsQty, containerRef, containerWidth };
 };

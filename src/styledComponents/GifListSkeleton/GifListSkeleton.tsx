@@ -17,6 +17,9 @@ const GifListSkeleton = (props: Props = { skeletonsQty: 4 }): JSX.Element => {
   const matchDownMd = useMediaQuery(theme.breakpoints.down('md'));
   const auxArray = Array.from(Array(skeletonsQty).keys());
 
+  const MIN_HEIGHT = 160;
+  const MAX_HEIGHT = 220;
+
   return (
     <Container
       sx={{
@@ -40,7 +43,7 @@ const GifListSkeleton = (props: Props = { skeletonsQty: 4 }): JSX.Element => {
               variant='rectangular'
               animation='wave'
               width='100%'
-              height={Math.floor(Math.random() * 220 + 160)}
+              height={Math.floor(Math.random() * MAX_HEIGHT + MIN_HEIGHT)}
             />
           </ImageListItem>
         ))}
