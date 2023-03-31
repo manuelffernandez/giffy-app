@@ -27,10 +27,13 @@ const GifDetail = (props: Props): JSX.Element => {
         </>
       ) : (
         <>
-          <Typography component='h2' variant='h4' color='primary.main'>
+          <Typography
+            component='h2'
+            variant='h4'
+            sx={{ color: 'primary.main', textAlign: 'center', mt: 2, mb: 2 }}>
             {gif.title}
           </Typography>
-          <img src={gif.url} alt={gif.title} />
+          <img src={gif.url} alt={gif.title} width='100%' />
         </>
       )}
     </Container>
