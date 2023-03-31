@@ -2,6 +2,7 @@ import { type SearchFormValues } from '@/interfaces';
 import SearchIcon from '@mui/icons-material/Search';
 import { Box, IconButton, Stack, Typography } from '@mui/material';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
+import { memo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { SearchTextField } from './components';
@@ -64,4 +65,4 @@ const SearchBar = (props: Props): JSX.Element => {
   );
 };
 
-export default SearchBar;
+export default memo(SearchBar);
