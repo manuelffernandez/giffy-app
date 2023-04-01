@@ -1,9 +1,9 @@
+import { ScrollTopButton } from '@/components';
 import { LazyGifItem } from '@/components/LazyGifItem';
 import { useGifList } from '@/hooks';
 import { type Gif } from '@/interfaces';
 import { GifListSkeleton } from '@/styledComponents';
-import ExpandLessIcon from '@mui/icons-material/ExpandLess';
-import { Button, Container, ImageList, Typography } from '@mui/material';
+import { Container, ImageList, Typography } from '@mui/material';
 import { Suspense } from 'react';
 
 interface Props {
@@ -65,12 +65,7 @@ const GifList = (props: Props): JSX.Element => {
               </ImageList>
             ) : null}
           </Suspense>
-          <Button
-            variant='contained'
-            sx={{ position: 'fixed', bottom: '10%', right: '5%' }}
-            href='#gif-list-title'>
-            <ExpandLessIcon />
-          </Button>
+          <ScrollTopButton />
         </>
       ) : (
         <h2>No GIFs found for {queryTerm}</h2>
