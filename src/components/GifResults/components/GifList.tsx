@@ -2,7 +2,8 @@ import { LazyGifItem } from '@/components/LazyGifItem';
 import { useGifList } from '@/hooks';
 import { type Gif } from '@/interfaces';
 import { GifListSkeleton } from '@/styledComponents';
-import { Container, ImageList, Typography } from '@mui/material';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import { Button, Container, ImageList, Typography } from '@mui/material';
 import { Suspense } from 'react';
 
 interface Props {
@@ -34,7 +35,11 @@ const GifList = (props: Props): JSX.Element => {
       }}>
       {gifs.length !== 0 ? (
         <>
-          <Typography component='h2' variant='h4' color='success.main'>
+          <Typography
+            component='h2'
+            variant='h4'
+            color='success.main'
+            id='gif-list-title'>
             Results for {queryTerm}
           </Typography>
           <Suspense fallback={<GifListSkeleton />}>
@@ -60,6 +65,12 @@ const GifList = (props: Props): JSX.Element => {
               </ImageList>
             ) : null}
           </Suspense>
+          <Button
+            variant='contained'
+            sx={{ position: 'fixed', bottom: '10%', right: '5%' }}
+            href='#gif-list-title'>
+            <ExpandLessIcon />
+          </Button>
         </>
       ) : (
         <h2>No GIFs found for {queryTerm}</h2>
