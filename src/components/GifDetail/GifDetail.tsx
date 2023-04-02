@@ -34,7 +34,12 @@ const GifDetail = (props: Props): JSX.Element => {
             sx={{ color: 'primary.main', textAlign: 'center', mt: 2, mb: 2 }}>
             {gif.title}
           </Typography>
-          <img src={gif.url} alt={gif.title} height='100%' />
+          <img
+            src={gif.url}
+            alt={gif.title}
+            style={{ backgroundColor: 'gray' }}
+            height='100%'
+          />
         </>
       )}
     </Container>
