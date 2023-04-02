@@ -6,3 +6,4 @@ export * from '@/components/LazyTrending';
 export * from '@/components/SearchBar';
 export * from '@/components/GifDetail';
 export * from '@/components/ScrollTopButton';
+export * from '@/components/BackButton';
