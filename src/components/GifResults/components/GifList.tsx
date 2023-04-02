@@ -3,8 +3,10 @@ import { LazyGifItem } from '@/components/LazyGifItem';
 import { useGifList } from '@/hooks';
 import { type Gif } from '@/interfaces';
 import { GifListSkeleton } from '@/styledComponents';
-import { Container, ImageList, Typography } from '@mui/material';
+import { Container, Typography } from '@mui/material';
 import { Suspense } from 'react';
+import Masonry from 'react-masonry-css';
+import './GifList.css';
 
 interface Props {
   gifs: Gif[];
@@ -44,16 +46,16 @@ const GifList = (props: Props): JSX.Element => {
           </Typography>
           <Suspense fallback={<GifListSkeleton />}>
             {displayGifList ? (
-              <ImageList
-                variant='masonry'
-                cols={colsQty}
-                gap={gapSize}
-                sx={{ overflow: 'hidden' }}>
+              <Masonry
+                breakpointCols={4}
+                className='masonry'
+                columnClassName='masonryColumn'>
                 {gifs.map(gif => {
                   const proportionalHeight =
                     (currentColWidth / gif.size.width) * gif.size.height;
                   return (
                     <LazyGifItem
+                      masonryClass='masonryItem'
                       key={gif.id}
                       id={gif.id}
                       title={gif.title}
@@ -62,7 +64,7 @@ const GifList = (props: Props): JSX.Element => {
                     />
                   );
                 })}
-              </ImageList>
+              </Masonry>
             ) : null}
           </Suspense>
           <ScrollTopButton />
