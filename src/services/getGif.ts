@@ -15,6 +15,7 @@ const getGif = async (
 
   const queryParams: KeyValueParam[] = [
     { paramKey: 'api_key', paramValue: import.meta.env.VITE_API_KEY },
+    // get by ID comma separated API queryparam
     { paramKey: 'ids', paramValue: gifId },
   ];
 
