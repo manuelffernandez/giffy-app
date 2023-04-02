@@ -18,7 +18,6 @@ const LazyGifItem = (props: Props): JSX.Element => {
   const { isNear, fromRef } = useNearScreen({ distance: '0px' });
   const { title, url, id, height, masonryClass } = props;
   const navigation = useLocation();
-  console.log(navigation);
 
   return (
     <Box
