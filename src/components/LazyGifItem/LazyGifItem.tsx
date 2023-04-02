@@ -22,6 +22,9 @@ const LazyGifItem = (props: Props): JSX.Element => {
       className={`${masonryClass}`}
       sx={{
         position: 'relative',
+        '&:hover': {
+          boxShadow: 10,
+        },
       }}>
       <CustomRouterLink to={`/gif/${id}`}>
         <Box
