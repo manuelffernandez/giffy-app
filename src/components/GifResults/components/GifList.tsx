@@ -47,7 +47,7 @@ const GifList = (props: Props): JSX.Element => {
           <Suspense fallback={<GifListSkeleton />}>
             {displayGifList ? (
               <Masonry
-                breakpointCols={4}
+                breakpointCols={colsQty}
                 className='masonry'
                 columnClassName='masonryColumn'>
                 {gifs.map(gif => {
