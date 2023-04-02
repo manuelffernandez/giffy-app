@@ -1,1 +1,1 @@
-export { default as randomColorGenerator } from './randomColor';
+export { default as randomColorGenerator } from './randomColorGenerator';
