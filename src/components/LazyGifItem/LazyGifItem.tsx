@@ -2,6 +2,7 @@ import { useNearScreen } from '@/hooks';
 import { CustomRouterLink } from '@/styledComponents';
 import { Box, Typography } from '@mui/material';
 import { Suspense, lazy, memo } from 'react';
+import { useLocation } from 'react-router-dom';
 
 interface Props {
   title: string;
@@ -16,6 +17,8 @@ const GifItemImg = lazy(async () => await import('./components/GifItemImg'));
 const LazyGifItem = (props: Props): JSX.Element => {
   const { isNear, fromRef } = useNearScreen({ distance: '0px' });
   const { title, url, id, height, masonryClass } = props;
+  const navigation = useLocation();
+  console.log(navigation);
 
   return (
     <Box
@@ -26,7 +29,9 @@ const LazyGifItem = (props: Props): JSX.Element => {
           boxShadow: 10,
         },
       }}>
-      <CustomRouterLink to={`/gif/${id}`}>
+      <CustomRouterLink
+        to={`/gif/${id}`}
+        state={{ prevPath: navigation.pathname }}>
         <Box
           ref={fromRef}
           sx={{
