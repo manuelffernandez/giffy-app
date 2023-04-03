@@ -1,24 +1,40 @@
 import { createTheme } from '@mui/material';
 import colors from './colors';
 
-const { black, white, blue, darkBlue, lightBlue } = colors;
+const {
+  white,
+  customBlack,
+  customWhite,
+  blue,
+  darkBlue,
+  lightBlue,
+  darkPink,
+  duskPink,
+  pink,
+} = colors;
 
 const lightTheme = createTheme({
   palette: {
     mode: 'light',
-    common: { black, white },
+    common: { black: customBlack, white: customWhite },
     primary: {
       main: blue,
       light: lightBlue,
       dark: darkBlue,
+      contrastText: customWhite,
+    },
+    secondary: {
+      main: darkPink,
+      light: pink,
+      dark: duskPink,
       contrastText: white,
     },
     text: {
-      primary: black,
+      primary: customBlack,
     },
     background: {
-      paper: white,
-      default: white,
+      paper: customWhite,
+      default: customWhite,
     },
   },
 });
