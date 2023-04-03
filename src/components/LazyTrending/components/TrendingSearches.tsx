@@ -31,7 +31,7 @@ const TrendingSearches = (): JSX.Element => {
       <Typography
         component='h3'
         variant='h4'
-        sx={{ color: 'primary.dark', textAlign: 'center', marginBottom: 3 }}>
+        sx={{ color: 'primary.main', textAlign: 'center', marginBottom: 3 }}>
         TRENDING
       </Typography>
       {isLoading ? (
