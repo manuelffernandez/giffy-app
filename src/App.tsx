@@ -1,15 +1,14 @@
-import lightTheme from '@/themes/lightTheme';
 import { CssBaseline } from '@mui/material';
-import { ThemeProvider } from '@mui/system';
 import { RouterProvider } from 'react-router-dom';
+import ColorModeProvider from './context/ColorModeProvider';
 import { router } from './router';
 
 function App(): JSX.Element {
   return (
-    <ThemeProvider theme={lightTheme}>
+    <ColorModeProvider>
       <CssBaseline />
       <RouterProvider router={router} />
-    </ThemeProvider>
+    </ColorModeProvider>
   );
 }
 
