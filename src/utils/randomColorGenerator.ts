@@ -1,4 +1,8 @@
-const randomColorGenerator = (): string => {
+const randomColorGenerator = (): {
+  color: string;
+  colorLight: string;
+  colorContrast: string;
+} => {
   const colors = [
     'primary',
     'secondary',
@@ -7,13 +11,14 @@ const randomColorGenerator = (): string => {
     'info',
     'success',
   ];
-  const variants = ['main', 'light', 'dark'];
 
   const randomColor = colors[Math.floor(Math.random() * (colors.length - 1))];
-  const randomVariant =
-    variants[Math.floor(Math.random() * (variants.length - 1))];
 
-  return randomColor.concat('.').concat(randomVariant);
+  return {
+    color: randomColor.concat('.').concat('main'),
+    colorLight: randomColor.concat('.').concat('light'),
+    colorContrast: randomColor.concat('.').concat('contrastText'),
+  };
 };
 
 export default randomColorGenerator;
