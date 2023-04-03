@@ -13,15 +13,26 @@ const Header = (): JSX.Element => {
   };
 
   return (
-    <AppBar position='sticky' sx={{ mb: 5, backgroundColor: 'primary.main' }}>
+    <AppBar
+      position='sticky'
+      sx={{
+        mb: 5,
+        backgroundColor: 'primary.dark',
+        boxShadow: 'none',
+        backgroundImage: 'none',
+      }}>
       <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <CustomRouterLink to='/'>
           <GifIcon fontSize='large' />
         </CustomRouterLink>
         <IconButton
           onClick={handleClick}
-          sx={{ color: 'primary.contrastText' }}>
-          {actualMode === 'light' ? <LightModeIcon /> : <DarkModeIcon />}
+          sx={{
+            color: 'text.primary',
+            backgroundColor: 'background.default',
+            '&:hover': { backgroundColor: 'background.default' },
+          }}>
+          {actualMode === 'dark' ? <LightModeIcon /> : <DarkModeIcon />}
         </IconButton>
       </Toolbar>
     </AppBar>

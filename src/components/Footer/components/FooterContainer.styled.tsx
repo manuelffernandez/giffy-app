@@ -9,7 +9,7 @@ const FooterContainer = styled('footer')(({ theme }) => ({
   marginTop: theme.spacing(5),
   paddingTop: theme.spacing(1),
   paddingBottom: theme.spacing(1),
-  backgroundColor: theme.palette.primary.main,
+  backgroundColor: theme.palette.primary.dark,
   color: theme.palette.primary.contrastText,
 }));
 
