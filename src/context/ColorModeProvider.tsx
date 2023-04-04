@@ -19,14 +19,26 @@ export const ColorModeContext = createContext<ColorModeType>(
 
 export default function ColorModeProvider(props: Props): JSX.Element {
   const { children } = props;
-  const [mode, setMode] = useState<Theme>(lightTheme);
+
+  const INITIAL_THEME: Theme =
+    localStorage.getItem('mode') === 'light' ||
+    localStorage.getItem('mode') === null
+      ? lightTheme
+      : darkTheme;
+  const [mode, setMode] = useState<Theme>(INITIAL_THEME);
 
   const colorMode = useMemo(
     () => ({
       toggleColorMode: () => {
-        setMode(prevMode =>
-          prevMode.palette.mode === 'light' ? darkTheme : lightTheme
-        );
+        setMode(prevMode => {
+          if (prevMode.palette.mode === 'light') {
+            localStorage.setItem('mode', 'dark');
+            return darkTheme;
+          } else {
+            localStorage.setItem('mode', 'light');
+            return lightTheme;
+          }
+        });
       },
     }),
     []
