@@ -1,0 +1,18 @@
+:root {
+  --gap-size: 8px;
+}
+
+.masonry {
+  display: flex;
+  width: auto;
+  margin-left: calc(0 - var(--gap-size));
+}
+
+.masonryColumn {
+  padding-left: var(--gap-size);
+  background-clip: padding-box;
+}
+
+.masonryItem {
+  margin-bottom: var(--gap-size);
+}

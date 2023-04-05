@@ -22,7 +22,7 @@ const Footer = (): JSX.Element => {
           fontSize='large'
           sx={{
             color: 'primary.contrastText',
-            '&:hover': { color: 'secondary.light' },
+            '&:hover': { color: 'secondary.main' },
           }}
         />
       </Typography>

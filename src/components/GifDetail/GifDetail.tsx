@@ -16,6 +16,7 @@ const GifDetail = (props: Props): JSX.Element => {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
+        maxHeight: '700px',
       }}>
       {isLoading ? (
         <>
@@ -33,7 +34,12 @@ const GifDetail = (props: Props): JSX.Element => {
             sx={{ color: 'primary.main', textAlign: 'center', mt: 2, mb: 2 }}>
             {gif.title}
           </Typography>
-          <img src={gif.url} alt={gif.title} width='100%' />
+          <img
+            src={gif.url}
+            alt={gif.title}
+            style={{ backgroundColor: 'gray' }}
+            height='100%'
+          />
         </>
       )}
     </Container>

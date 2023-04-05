@@ -14,8 +14,19 @@ interface Props {
 const GifListSkeleton = (props: Props = { skeletonsQty: 4 }): JSX.Element => {
   const { skeletonsQty } = props;
   const theme = useTheme();
-  const matchDownMd = useMediaQuery(theme.breakpoints.down('md'));
   const auxArray = Array.from(Array(skeletonsQty).keys());
+  const matchDownMd = useMediaQuery(theme.breakpoints.down('md'));
+  const matchDownSm = useMediaQuery(theme.breakpoints.down('sm'));
+
+  const defineColsQty = (): number => {
+    if (matchDownSm) {
+      return 1;
+    } else if (matchDownMd) {
+      return 2;
+    } else {
+      return 4;
+    }
+  };
 
   const MIN_HEIGHT = 160;
   const MAX_HEIGHT = 220;
@@ -29,7 +40,7 @@ const GifListSkeleton = (props: Props = { skeletonsQty: 4 }): JSX.Element => {
       }}>
       <ImageList
         variant='masonry'
-        cols={matchDownMd ? 2 : 4}
+        cols={defineColsQty()}
         gap={8}
         sx={{ overflow: 'hidden' }}>
         {auxArray.map((_, index) => (

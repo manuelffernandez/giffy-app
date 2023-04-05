@@ -31,7 +31,7 @@ const TrendingSearches = (): JSX.Element => {
       <Typography
         component='h3'
         variant='h4'
-        sx={{ color: 'primary.dark', textAlign: 'center', marginBottom: 3 }}>
+        sx={{ color: 'primary.main', textAlign: 'center', marginBottom: 3 }}>
         TRENDING
       </Typography>
       {isLoading ? (
@@ -41,7 +41,7 @@ const TrendingSearches = (): JSX.Element => {
           component='ul'
           sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
           {trends.map((trend, index) => {
-            const itemColor = randomColorGenerator();
+            const { color, colorLight, colorContrast } = randomColorGenerator();
 
             return (
               <Box key={index} component='li' sx={{ marginRight: 2 }}>
@@ -49,10 +49,13 @@ const TrendingSearches = (): JSX.Element => {
                   <Typography
                     sx={{
                       fontWeight: 600,
-                      fontSize: '1.5rem',
-                      color: itemColor,
+                      fontSize: '1.3rem',
+                      marginBottom: 1,
+                      paddingX: 1,
+                      backgroundColor: color,
+                      color: colorContrast,
                       '&:hover': {
-                        textDecoration: 'underline',
+                        backgroundColor: colorLight,
                       },
                     }}>
                     {trend}
