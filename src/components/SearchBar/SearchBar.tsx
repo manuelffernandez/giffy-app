@@ -5,10 +5,10 @@ import {
   Button,
   MenuItem,
   Select,
-  Stack,
-  Typography,
+  useMediaQuery,
+  useTheme,
 } from '@mui/material';
-import { ErrorMessage, Field, Form, Formik } from 'formik';
+import { Field, Form, Formik } from 'formik';
 import { memo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
@@ -20,6 +20,8 @@ interface Props {
 
 const SearchBar = (props: Props): JSX.Element => {
   const navigate = useNavigate();
+  const theme = useTheme();
+  const matchSm = useMediaQuery(theme.breakpoints.down('sm'));
 
   const { queryTerm } = props;
 
@@ -45,8 +47,34 @@ const SearchBar = (props: Props): JSX.Element => {
 
         return (
           <Form>
-            <Stack direction='column' sx={{ mb: 5 }}>
-              <Box sx={{ display: 'flex' }}>
+            <Box
+              id='formBox'
+              sx={
+                matchSm
+                  ? {
+                      display: 'flex',
+                      flexDirection: 'column',
+                    }
+                  : {
+                      display: 'flex',
+                      flexDirection: 'row',
+                    }
+              }>
+              <Box
+                id='searchBox'
+                sx={
+                  matchSm
+                    ? {
+                        display: 'flex',
+                        flex: 1,
+                        marginBottom: 2,
+                      }
+                    : {
+                        display: 'flex',
+                        flex: 1,
+                        marginBottom: 0,
+                      }
+                }>
                 <Field name='rating'>
                   {({ field, form }) => {
                     return (
@@ -72,40 +100,41 @@ const SearchBar = (props: Props): JSX.Element => {
                   }}
                 </Field>
                 <Field
-                  sx={{ marginX: 2 }}
                   name='queryTerm'
                   placeholder='Search for gifs'
                   required
                   autoComplete='off'
                   error={isError}
                   as={SearchTextField}
+                  sx={matchSm ? { marginLeft: 2 } : { marginX: 2 }}
                 />
-                <Button
-                  sx={{
-                    width: '15%',
-                    minWidth: '120px',
+              </Box>
+              <Button
+                sx={{
+                  flex: 0.2,
+                  minWidth: '120px',
+                  boxShadow: 0,
+                  letterSpacing: 4,
+                  '&:hover': {
+                    backgroundColor: isError ? 'error.light' : 'primary.light',
                     boxShadow: 0,
-                    letterSpacing: 4,
-                    '&:hover': {
-                      backgroundColor: isError
-                        ? 'error.light'
-                        : 'primary.light',
-                      boxShadow: 0,
-                    },
-                  }}
-                  variant='contained'
-                  color={isError ? 'error' : 'primary'}
-                  aria-label='search gifs'
-                  type='submit'>
-                  Search
-                </Button>
-              </Box>
-              <Box>
-                <Typography color='error.main' fontSize='medium'>
-                  <ErrorMessage name='queryTerm' />
-                </Typography>
-              </Box>
-            </Stack>
+                  },
+                }}
+                variant='contained'
+                color={isError ? 'error' : 'primary'}
+                aria-label='search gifs'
+                type='submit'>
+                Search
+              </Button>
+              {/* <Typography
+                sx={{
+                  display: isError ? 'hidden' : 'inherit',
+                }}
+                color='error.main'
+                fontSize='medium'>
+                <ErrorMessage name='queryTerm' />
+              </Typography> */}
+            </Box>
           </Form>
         );
       }}

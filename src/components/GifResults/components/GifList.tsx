@@ -40,8 +40,10 @@ const GifList = (props: Props): JSX.Element => {
           <Typography
             component='h2'
             variant='h4'
+            textAlign='center'
             color='success.main'
-            id='gif-list-title'>
+            id='gif-list-title'
+            sx={{ marginTop: 2 }}>
             Results for {queryTerm}
           </Typography>
           <Suspense fallback={<GifListSkeleton />}>
