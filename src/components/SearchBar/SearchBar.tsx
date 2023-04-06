@@ -1,6 +1,12 @@
 import { type SearchFormValues } from '@/interfaces';
-import SearchIcon from '@mui/icons-material/Search';
-import { Box, IconButton, Stack, Typography } from '@mui/material';
+import {
+  Box,
+  Button,
+  MenuItem,
+  Select,
+  Stack,
+  Typography,
+} from '@mui/material';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { memo } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -16,13 +22,18 @@ const SearchBar = (props: Props): JSX.Element => {
 
   const { queryTerm } = props;
 
+  const initialValues: SearchFormValues = {
+    queryTerm,
+    rating: 'g',
+  };
+
   const handleSubmit = (values: SearchFormValues): void => {
     navigate(`/search/${values.queryTerm}`);
   };
 
   return (
     <Formik
-      initialValues={{ queryTerm }}
+      initialValues={initialValues}
       validationSchema={Yup.object({
         queryTerm: Yup.string().required('You have to search for something'),
       })}
@@ -34,9 +45,31 @@ const SearchBar = (props: Props): JSX.Element => {
         return (
           <Form>
             <Stack direction='column' sx={{ mb: 5 }}>
-              <Box sx={{ display: 'flex', flexGrow: 1 }}>
+              <Box sx={{ display: 'flex' }}>
+                <Field name='rating'>
+                  {({ field, form }) => {
+                    return (
+                      <Select
+                        sx={{
+                          width: '15%',
+                          maxWidth: '100px',
+                          minWidth: '90px',
+                        }}
+                        name='rating'
+                        value={field.value}
+                        onChange={event => {
+                          form.setFieldValue(field.name, event.target.value);
+                        }}>
+                        <MenuItem value='g'>g</MenuItem>
+                        <MenuItem value='pg'>pg</MenuItem>
+                        <MenuItem value='pg-13'>pg-13</MenuItem>
+                        <MenuItem value='r'>r</MenuItem>
+                      </Select>
+                    );
+                  }}
+                </Field>
                 <Field
-                  sx={{ flex: 1 }}
+                  sx={{ marginX: 2 }}
                   name='queryTerm'
                   placeholder='Search for gifs'
                   required
@@ -44,13 +77,24 @@ const SearchBar = (props: Props): JSX.Element => {
                   error={isError}
                   as={SearchTextField}
                 />
-                <IconButton
+                <Button
+                  sx={{
+                    width: '15%',
+                    minWidth: '120px',
+                    fontSize: '1rem',
+                    boxShadow: 0,
+                    letterSpacing: 4,
+                    '&:hover': {
+                      backgroundColor: 'primary.light',
+                      boxShadow: 0,
+                    },
+                  }}
+                  variant='contained'
                   color={isError ? 'error' : 'primary'}
                   aria-label='search gifs'
-                  component='button'
                   type='submit'>
-                  <SearchIcon />
-                </IconButton>
+                  Search
+                </Button>
               </Box>
               <Box>
                 <Typography color='error.main' fontSize='medium'>
