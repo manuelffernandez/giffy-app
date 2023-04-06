@@ -1,3 +1,4 @@
+import { RATINGS } from '@/helpers/ratings';
 import { type SearchFormValues } from '@/interfaces';
 import {
   Box,
@@ -28,7 +29,7 @@ const SearchBar = (props: Props): JSX.Element => {
   };
 
   const handleSubmit = (values: SearchFormValues): void => {
-    navigate(`/search/${values.queryTerm}`);
+    navigate(`/search/${values.queryTerm}/${values.rating}`);
   };
 
   return (
@@ -60,10 +61,12 @@ const SearchBar = (props: Props): JSX.Element => {
                         onChange={event => {
                           form.setFieldValue(field.name, event.target.value);
                         }}>
-                        <MenuItem value='g'>g</MenuItem>
-                        <MenuItem value='pg'>pg</MenuItem>
-                        <MenuItem value='pg-13'>pg-13</MenuItem>
-                        <MenuItem value='r'>r</MenuItem>
+                        <MenuItem disabled>Rating</MenuItem>
+                        {RATINGS.map(rating => (
+                          <MenuItem key={rating} value={rating}>
+                            {rating}
+                          </MenuItem>
+                        ))}
                       </Select>
                     );
                   }}
@@ -81,11 +84,12 @@ const SearchBar = (props: Props): JSX.Element => {
                   sx={{
                     width: '15%',
                     minWidth: '120px',
-                    fontSize: '1rem',
                     boxShadow: 0,
                     letterSpacing: 4,
                     '&:hover': {
-                      backgroundColor: 'primary.light',
+                      backgroundColor: isError
+                        ? 'error.light'
+                        : 'primary.light',
                       boxShadow: 0,
                     },
                   }}
