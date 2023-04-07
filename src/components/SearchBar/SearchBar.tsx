@@ -1,10 +1,11 @@
 import { RATINGS } from '@/helpers/ratings';
 import { type SearchFormValues } from '@/interfaces';
 import {
-  Box,
   Button,
+  Container,
   MenuItem,
   Select,
+  Typography,
   useMediaQuery,
   useTheme,
 } from '@mui/material';
@@ -12,7 +13,11 @@ import { Field, Form, Formik } from 'formik';
 import { memo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
-import { SearchTextField } from './components';
+import {
+  FormContainer,
+  FormOptionsContainer,
+  SearchTextField,
+} from './components';
 
 interface Props {
   queryTerm: string;
@@ -38,7 +43,7 @@ const SearchBar = (props: Props): JSX.Element => {
     <Formik
       initialValues={initialValues}
       validationSchema={Yup.object({
-        queryTerm: Yup.string().required('You have to search for something'),
+        queryTerm: Yup.string().required('Write something'),
       })}
       onSubmit={handleSubmit}>
       {({ errors, touched }) => {
@@ -47,47 +52,21 @@ const SearchBar = (props: Props): JSX.Element => {
 
         return (
           <Form>
-            <Box
-              id='formBox'
-              sx={
-                matchSm
-                  ? {
-                      display: 'flex',
-                      flexDirection: 'column',
-                    }
-                  : {
-                      display: 'flex',
-                      flexDirection: 'row',
-                    }
-              }>
-              <Box
-                id='searchBox'
-                sx={
-                  matchSm
-                    ? {
-                        display: 'flex',
-                        flex: 1,
-                        marginBottom: 2,
-                      }
-                    : {
-                        display: 'flex',
-                        flex: 1,
-                        marginBottom: 0,
-                      }
-                }>
+            <FormContainer>
+              <FormOptionsContainer>
                 <Field name='rating'>
                   {({ field, form }) => {
                     return (
                       <Select
-                        sx={{
-                          width: '15%',
-                          maxWidth: '100px',
-                          minWidth: '90px',
-                        }}
                         name='rating'
                         value={field.value}
                         onChange={event => {
                           form.setFieldValue(field.name, event.target.value);
+                        }}
+                        sx={{
+                          width: '15%',
+                          maxWidth: '100px',
+                          minWidth: '90px',
                         }}>
                         <MenuItem disabled>Rating</MenuItem>
                         {RATINGS.map(rating => (
@@ -99,16 +78,31 @@ const SearchBar = (props: Props): JSX.Element => {
                     );
                   }}
                 </Field>
-                <Field
-                  name='queryTerm'
-                  placeholder='Search for gifs'
-                  required
-                  autoComplete='off'
-                  error={isError}
-                  as={SearchTextField}
-                  sx={matchSm ? { marginLeft: 2 } : { marginX: 2 }}
-                />
-              </Box>
+                <Container
+                  disableGutters
+                  sx={{
+                    position: 'relative',
+                    ...(matchSm ? { marginLeft: 2 } : { marginX: 2 }),
+                  }}>
+                  <Field
+                    name='queryTerm'
+                    placeholder='Search for gifs'
+                    required
+                    autoComplete='off'
+                    error={isError}
+                    as={SearchTextField}
+                  />
+                  <Typography
+                    sx={{
+                      position: 'absolute',
+                      width: '100%',
+                      display: isError ? 'block' : 'hidden',
+                      color: 'error.main',
+                    }}>
+                    {errors.queryTerm}
+                  </Typography>
+                </Container>
+              </FormOptionsContainer>
               <Button
                 sx={{
                   flex: 0.2,
@@ -126,15 +120,7 @@ const SearchBar = (props: Props): JSX.Element => {
                 type='submit'>
                 Search
               </Button>
-              {/* <Typography
-                sx={{
-                  display: isError ? 'hidden' : 'inherit',
-                }}
-                color='error.main'
-                fontSize='medium'>
-                <ErrorMessage name='queryTerm' />
-              </Typography> */}
-            </Box>
+            </FormContainer>
           </Form>
         );
       }}
