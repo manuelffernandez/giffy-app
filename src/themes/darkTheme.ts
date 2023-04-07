@@ -6,7 +6,7 @@ const {
   customBlack,
   customWhite,
   blue,
-  brightBlue,
+  lightBlue,
   duskBlue,
   pink,
   lightPink,
@@ -19,7 +19,7 @@ const darkTheme = createTheme({
     common: { black, white: customWhite },
     primary: {
       main: blue,
-      light: brightBlue,
+      light: lightBlue,
       dark: duskBlue,
       contrastText: customWhite,
     },

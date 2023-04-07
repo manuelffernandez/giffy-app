@@ -6,16 +6,19 @@ import debounce from 'just-debounce-it';
 import { lazy, useCallback, useEffect, useRef } from 'react';
 
 interface Props {
-  queryTerm: string;
+  query: {
+    term: string;
+    rating: string;
+  };
 }
 
 const GifList = lazy(async () => await import('./components/GifList'));
 
 const GifResults = (props: Props): JSX.Element => {
-  const { queryTerm } = props;
+  const { query } = props;
   const { gifs, isLoading, noMoreResults, isLoadingPage, pageForward } =
     useGifs({
-      queryTerm,
+      query,
     });
   const visorRef = useRef<HTMLDivElement>(null);
   const { isNear } = useNearScreen({
@@ -43,7 +46,7 @@ const GifResults = (props: Props): JSX.Element => {
     <GifListSkeleton skeletonsQty={8} />
   ) : (
     <>
-      <GifList gifs={gifs} queryTerm={queryTerm} minHeight='1000px' />
+      <GifList gifs={gifs} queryTerm={query.term} minHeight='1000px' />
       {isLoadingPage ? (
         <Box sx={{ width: '50%', marginX: 'auto', marginTop: 3 }}>
           <LinearProgress sx={{ height: 10 }} />
@@ -54,7 +57,7 @@ const GifResults = (props: Props): JSX.Element => {
           component='p'
           variant='h5'
           sx={{ color: 'primary.main', textAlign: 'center' }}>
-          No more results for {queryTerm}
+          No more results for {query.term}
         </Typography>
       ) : null}
       <div id='visor' ref={visorRef}></div>

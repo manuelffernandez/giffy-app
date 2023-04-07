@@ -1,14 +1,23 @@
 import { GifResults, SearchBar } from '@/components';
 import { useParams } from 'react-router-dom';
+import { RATINGS } from '@/helpers/ratings';
 
 const SearchPage = (): JSX.Element => {
-  const { queryTerm } = useParams() as { queryTerm: string };
+  const params = useParams() as {
+    term: string;
+    rating?: string;
+  };
 
   return (
     <>
       <h1>Search</h1>
-      <SearchBar queryTerm={queryTerm} />
-      <GifResults queryTerm={queryTerm} />
+      <SearchBar queryTerm={params.term} />
+      <GifResults
+        query={{
+          term: params.term,
+          rating: params.rating ?? RATINGS[0],
+        }}
+      />
     </>
   );
 };

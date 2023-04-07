@@ -9,6 +9,7 @@ import { errorHandler, setURLParams } from './utils';
 
 interface Params {
   queryTerm: string;
+  rating: string;
   pageNumber?: number;
   limit?: number;
   offset?: number;
@@ -16,6 +17,7 @@ interface Params {
 
 const getGifs = async ({
   queryTerm,
+  rating = 'g',
   pageNumber = 0,
   limit = 20,
   offset = limit * pageNumber,
@@ -28,7 +30,7 @@ const getGifs = async ({
     { paramKey: 'q', paramValue: queryTerm },
     { paramKey: 'offset', paramValue: offset },
     { paramKey: 'limit', paramValue: limit },
-    { paramKey: 'rating', paramValue: 'g' },
+    { paramKey: 'rating', paramValue: rating },
     { paramKey: 'lang', paramValue: 'en' },
   ];
 

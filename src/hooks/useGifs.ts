@@ -3,14 +3,17 @@ import { getGifs } from '@/services';
 import { useEffect, useState } from 'react';
 
 interface Params {
-  queryTerm: string;
+  query: {
+    rating: string;
+    term: string;
+  };
 }
 
 const INITIAL_PAGE_NUMBER = 0;
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 const useGifs = (params: Params) => {
-  const { queryTerm } = params;
+  const { query } = params;
   const RESULTS_QTY = 20;
   const PAGINATE_RESULTS_QTY = 10;
 
@@ -30,8 +33,11 @@ const useGifs = (params: Params) => {
 
   useEffect(() => {
     setNoMoreResults(false);
-    // avoid no-floating-promises error
-    void getGifs({ queryTerm, limit: RESULTS_QTY }).then(res => {
+    void getGifs({
+      limit: RESULTS_QTY,
+      rating: query.rating,
+      queryTerm: query.term,
+    }).then(res => {
       setIsLoading(false);
       if (res.isOk) {
         setGifs(res.gifs);
@@ -39,7 +45,7 @@ const useGifs = (params: Params) => {
         console.log('oh oh');
       }
     });
-  }, [queryTerm]);
+  }, [query.term, query.rating]);
 
   useEffect(() => {
     if (pageNumber === INITIAL_PAGE_NUMBER) return;
@@ -49,7 +55,8 @@ const useGifs = (params: Params) => {
 
     // avoid no-floating-promises error
     void getGifs({
-      queryTerm,
+      rating: query.rating,
+      queryTerm: query.term,
       pageNumber,
       limit: PAGINATE_RESULTS_QTY,
       offset,
