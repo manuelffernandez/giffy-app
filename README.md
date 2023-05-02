@@ -1,5 +1,7 @@
 # Giffy app :rocket:
 ## What is about :question:
+
+#### Still in development :exclamation: :exclamation:
 This is a front-end project based on a React YouTube list by [midudev](https://www.youtube.com/@midudev). The application is a Giffy app where users can log in, mark gifs as favorites, and filter by name or tags. The project was developed using Typescript.
 
 The project is intended to being developed keeping in mind the principles of clean architecture, which implies separating the application into different layers, each with its own responsibilities and dependencies.
