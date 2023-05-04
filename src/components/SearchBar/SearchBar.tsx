@@ -9,7 +9,7 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material';
-import { Field, Form, Formik } from 'formik';
+import { Field, Form, Formik, type FieldProps } from 'formik';
 import { memo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
@@ -55,7 +55,8 @@ const SearchBar = (props: Props): JSX.Element => {
             <FormContainer>
               <FormOptionsContainer>
                 <Field name='rating'>
-                  {({ field, form }) => {
+                  {(fieldProps: FieldProps) => {
+                    const { field, form } = fieldProps;
                     return (
                       <Select
                         name='rating'
