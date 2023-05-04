@@ -11,11 +11,11 @@ If you are interested in this course you can check it [here](https://www.youtube
 #### Techs & libraries :wrench:
 These are some of the main techs and libs that I used for this project:
 
-[<img src='./public/logos/typescript.svg' />](https://www.typescriptlang.org/)
-[<img src='./public/logos/formik.svg' />](https://formik.org/)
-[<img src='./public/logos/react-router.svg' />](https://reactrouter.com/en/main)
-[<img src='./public/logos/redux.svg' />](https://redux-toolkit.js.org/)
-[<img src='./public/logos/mui.svg' />](https://mui.com/)
+[<img src='./public/logos/typescript.svg' alt='typescript logo' />](https://www.typescriptlang.org/)
+[<img src='./public/logos/formik.svg' alt='formik logo' />](https://formik.org/)
+[<img src='./public/logos/react-router.svg' alt='react router logo' />](https://reactrouter.com/en/main)
+[<img src='./public/logos/redux.svg' alt='redux logo' />](https://redux-toolkit.js.org/)
+[<img src='./public/logos/mui.svg' alt='materialui logo' />](https://mui.com/)
 
 ## Features
 
@@ -24,11 +24,13 @@ These are some of the main techs and libs that I used for this project:
 - Filter gifs by name or rating.
 
 ## Screenshot :calling:
-Cooming soon...
+<img src='https://res.cloudinary.com/dke7ynizq/image/upload/v1683176672/Giffy%20App/giphy-screenshot_xmgqbr_gbcbrk.jpg' alt='giffy app screenshot' />
 
 ## Deploy
-This app is deployed at Vercel. Please check it in the following link:
-#### :arrow_right: https://giffy-app-sable.vercel.app/
+This app is deployed at Vercel. Please check it in the following link: :arrow_down::arrow_down::arrow_down:
+#### [:arrow_right: https://giffy-app-sable.vercel.app/ :arrow_left:]()
+
+Any feedback is welcome :wink:
 
 ## Installation
 
@@ -44,5 +46,7 @@ If you don't have nvm installed in your computer, ensure that you have that spec
 -  `npm i` or `npm install` to install the necessary dependencies.
 -  `npm run dev` to launch the application in your browser.
 
-## Contact me :email:
-#### manufer6503@gmail.com
+## Contact me :arrow_down:
+#### :email: [manufer6503@gmail.com](mailto:manufer6503@gmail.com)
+#### :link: [linkedin](https://www.linkedin.com/in/manuelffernandez/)
+#### :iphone: +54 9 294 4650354
